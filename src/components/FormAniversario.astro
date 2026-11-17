@@ -1,0 +1,88 @@
+---
+// Monta a mensagem e abre o WhatsApp da unidade. Sem backend.
+import { unidades } from '../config/unidades';
+import { site } from '../config/site';
+import Icone from './Icone.astro';
+interface Props { id?: string; }
+const { id = 'form-aniv' } = Astro.props;
+// Casas que recebem festa: salão ou ao ar livre (as sem serviço definido entram até confirmar)
+const casas = unidades.filter((u) => u.servicos.includes('salao') || u.servicos.includes('ar-livre') || u.servicos.length === 0);
+const dados = Object.fromEntries(unidades.map((u) => [u.slug, { nome: u.nome, whats: u.whatsapp }]));
+---
+<form class="form-aniv" id={id} data-form-aniv data-unidades={JSON.stringify(dados)} novalidate>
+  <div class="campo">
+    <label for={`${id}-nome`}>Seu nome</label>
+    <input id={`${id}-nome`} name="nome" autocomplete="name" required enterkeyhint="next" />
+  </div>
+  <div class="campo">
+    <label for={`${id}-unidade`}>Em qual Nalu?</label>
+    <select id={`${id}-unidade`} name="unidade" required data-sel-unidade>
+      {casas.map((u) => <option value={u.slug}>Nalu {u.nome} · {u.bairro}</option>)}
+    </select>
+  </div>
+  <div class="dupla">
+    <div class="campo">
+      <label for={`${id}-data`}>Data da festa</label>
+      <input id={`${id}-data`} name="data" type="date" required />
+    </div>
+    <div class="campo">
+      <label for={`${id}-conv`}>Convidados</label>
+      <input id={`${id}-conv`} name="convidados" type="number" inputmode="numeric" min="1" max="300" required placeholder={String(site.aniversario.convidadosMinimos)} enterkeyhint="send" />
+    </div>
+  </div>
+  <p class="erro" data-erro role="alert" hidden></p>
+  <button type="submit" class="btn btn--escuro"><Icone nome="whats" />Reservar pelo WhatsApp</button>
+  <p class="nota">Abre o WhatsApp com a mensagem pronta. É só enviar.</p>
+</form>
+
+<style>
+  .form-aniv { display: grid; gap: 14px; }
+  .campo { display: grid; gap: 6px; min-width: 0; }
+  label { font-weight: 600; font-size: 0.9375rem; }
+  input, select {
+    width: 100%; min-height: 52px; padding: 0 14px; border-radius: 14px;
+    border: 1.5px solid color-mix(in srgb, var(--petroleo) 25%, transparent);
+    background: var(--farinha-2); color: var(--tinta); font-size: 16px;
+  }
+  select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--petroleo) 50%), linear-gradient(135deg, var(--petroleo) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 36px; }
+  input:focus, select:focus { outline: none; border-color: var(--petroleo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ambar) 55%, transparent); }
+  .dupla { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+  .erro { color: var(--tomate); font-weight: 600; font-size: 0.9375rem; }
+  .btn { width: 100%; min-height: 56px; margin-top: 4px; }
+  .nota { font-size: var(--t-xs); color: var(--tinta-suave); text-align: center; }
+</style>
+
+<script>
+  import { lerEscolha } from '../lib/escolha';
+  document.querySelectorAll<HTMLFormElement>('[data-form-aniv]').forEach((f) => {
+    const dados = JSON.parse(f.dataset.unidades!) as Record<string, { nome: string; whats: string | null }>;
+    const sel = f.querySelector<HTMLSelectElement>('[data-sel-unidade]')!;
+    const pre = lerEscolha()?.slug;
+    if (pre && [...sel.options].some((o) => o.value === pre)) sel.value = pre;
+    const dataInput = f.querySelector<HTMLInputElement>('input[type=date]')!;
+    dataInput.min = new Date().toISOString().slice(0, 10);
+    const erro = f.querySelector<HTMLElement>('[data-erro]')!;
+
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(f);
+      const nome = String(fd.get('nome') || '').trim();
+      const data = String(fd.get('data') || '');
+      const conv = String(fd.get('convidados') || '');
+      const falta = [!nome && 'seu nome', !data && 'a data', !conv && 'o número de convidados'].filter(Boolean);
+      if (falta.length) {
+        erro.textContent = `Falta ${falta.join(', ')}.`;
+        erro.hidden = false;
+        f.querySelector<HTMLElement>(':invalid')?.focus();
+        return;
+      }
+      erro.hidden = true;
+      const u = dados[String(fd.get('unidade'))];
+      const dataBR = data.split('-').reverse().join('/');
+      const msg = `Oi, Nalu ${u.nome}! Sou ${nome} e quero comemorar um aniversário aí no dia ${dataBR}, com ${conv} convidados. Como faço a reserva?`;
+      // TODO: sem WhatsApp cadastrado, abre o WhatsApp para a pessoa escolher o contato
+      const url = `https://wa.me/${u.whats ?? ''}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank', 'noopener');
+    });
+  });
+</script>

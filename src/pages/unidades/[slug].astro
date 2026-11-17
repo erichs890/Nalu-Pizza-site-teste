@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+import Foto from '../../components/Foto.astro';
+import Icone from '../../components/Icone.astro';
+import Derretido from '../../components/Derretido.astro';
+import FormAniversario from '../../components/FormAniversario.astro';
+import { unidades, servicoNome, rotaUrl, whatsFmt, type Unidade } from '../../config/unidades';
+import { jsonldRestaurante, breadcrumb } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return unidades.map((u) => ({ params: { slug: u.slug }, props: { u } }));
+}
+const { u } = Astro.props as { u: Unidade };
+const outras = unidades.filter((x) => x.slug !== u.slug);
+const dias = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+const recebeFesta = u.servicos.includes('salao') || u.servicos.includes('ar-livre');
+const fotoPede: Record<string, string> = {
+  coco: 'salão do Cocó, plantas, luz quente, família à mesa (horizontal)',
+  sul: 'fachada da Nalu Sul ou motoboy saindo com o pedido (horizontal)',
+  north: 'quintal sob coqueiros com cordões de luz à noite (horizontal)',
+  eusebio: 'fachada ou salão da Nalu Eusébio (horizontal)',
+};
+---
+<Base
+  titulo={u.seo.titulo}
+  descricao={u.seo.descricao}
+  og={`/og/${u.slug}.png`}
+  jsonld={[jsonldRestaurante(u), breadcrumb([['Início', '/'], ['Unidades', '/unidades'], [`Nalu ${u.nome}`, `/unidades/${u.slug}`]])]}
+>
+  <section class="topo-u on-dark" data-hero>
+    <div class="foto">
+      <Foto src={`unidades/${u.slug}/capa.jpg`} alt={`Ambiente da Nalu ${u.nome}`} pede={fotoPede[u.slug]} proporcao="16/9" sizes="100vw" larguras={[480, 768, 1200, 1600, 2400]} prioridade tom="massa" />
+    </div>
+    <div class="wrap cab">
+      <nav class="migalha" aria-label="Você está em"><a href="/unidades">As 4 casas</a> / <span>{u.nome}</span></nav>
+      <h1 class="chamada"><span class="pre">Nalu</span> {u.nome}</h1>
+      {u.apelido && <p class="apelido">{u.apelido}</p>}
+      <p class="frase">{u.frase}</p>
+      <span class="status" data-status-slug={u.slug}>Horário a confirmar</span>
+      <div class="acoes">
+        {u.pedido
+          ? <a class="btn" href={u.pedido} target="_blank" rel="noopener"><Icone nome="sacola" />Pedir na Nalu {u.nome}</a>
+          : <span class="btn desativado" aria-disabled="true">Pedido online em breve</span>}
+        <a class="btn btn--contorno" href={rotaUrl(u)} target="_blank" rel="noopener"><Icone nome="rota" />Traçar rota</a>
+      </div>
+    </div>
+  </section>
+  <Derretido cor="var(--petroleo)" variante={2} />
+
+  <section class="wrap detalhes" id="contato">
+    <div class="bloco">
+      <h2 class="chamada">Onde fica</h2>
+      <p class="end">{u.endereco}<br />{u.bairro} · {u.cidade} – CE {u.cep && <><br />CEP {u.cep}</>}</p>
+      <a class="link-sublinhado forte" href={rotaUrl(u)} target="_blank" rel="noopener">Abrir no mapa</a>
+    </div>
+    <div class="bloco">
+      <h2 class="chamada">Horários</h2>
+      {u.horarios
+        ? <dl class="horas">{dias.map((d, i) => {
+            const h = u.horarios!.find((x) => x.dias.includes(i as never));
+            return <><dt>{d}</dt><dd>{h ? `${h.abre} às ${h.fecha}` : 'Fechado'}</dd></>;
+          })}</dl>
+        : <p class="confirmar">[CONFIRMAR: horários por dia]</p>}
+    </div>
+    <div class="bloco">
+      <h2 class="chamada">Fale com a casa</h2>
+      <div class="contatos">
+        {u.whatsapp
+          ? <a class="btn btn--escuro btn--pequeno" href={`https://wa.me/${u.whatsapp}`} target="_blank" rel="noopener"><Icone nome="whats" />{whatsFmt(u.whatsapp)}</a>
+          : <span class="confirmar">[CONFIRMAR: WhatsApp]</span>}
+        {u.telefone
+          ? <a class="btn btn--contorno btn--pequeno" href={`tel:+55${u.telefone.replace(/\D/g, '')}`}><Icone nome="fone" />{u.telefone}</a>
+          : !u.whatsapp && <span class="confirmar">[CONFIRMAR: telefone]</span>}
+        {u.instagram && <a class="btn btn--contorno btn--pequeno" href={u.instagram} target="_blank" rel="noopener"><Icone nome="insta" />Instagram da casa</a>}
+      </div>
+      <h2 class="chamada sub-h">O que tem aqui</h2>
+      {u.servicos.length
+        ? <p class="servicos">{u.servicos.map((s) => <span class="chip">{servicoNome[s]}</span>)}</p>
+        : <p class="confirmar">[CONFIRMAR: serviços]</p>}
+    </div>
+  </section>
+
+  {recebeFesta && (
+    <section class="festa">
+      <div class="wrap festa-in">
+        <div>
+          <h2 class="chamada">Aniversário na Nalu {u.nome}</h2>
+          <p>Escolha a data e mande a mensagem pronta pra casa.</p>
+        </div>
+        <div class="form-caixa"><FormAniversario id={`aniv-${u.slug}`} /></div>
+      </div>
+    </section>
+  )}
+
+  <section class="wrap outras" aria-labelledby="outras-t">
+    <h2 id="outras-t" class="chamada">As outras casas</h2>
+    <ul>
+      {outras.map((o) => (
+        <li><a href={`/unidades/${o.slug}`}><span class="n">{o.nome}</span><span class="b">{o.bairro}</span><Icone nome="seta" /></a></li>
+      ))}
+    </ul>
+  </section>
+</Base>
+<style>
+  .topo-u { background: var(--petroleo); color: var(--farinha-2); }
+  .foto :global(.foto) { max-height: 56svh; }
+  .cab { display: grid; gap: 12px; justify-items: start; padding-block: 22px 30px; }
+  .migalha { font-size: var(--t-xs); opacity: 0.8; }
+  .migalha a { padding-block: 12px; }
+  h1 { font-size: var(--t-3xl); color: var(--ambar); }
+  .pre { color: var(--farinha-2); }
+  .apelido { font-family: var(--f-display); font-weight: 600; color: var(--ambar-claro); letter-spacing: 0.02em; }
+  .frase { font-family: var(--f-sabor); font-style: italic; font-size: var(--t-l); max-width: 34ch; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .desativado { opacity: 0.55; cursor: not-allowed; }
+  .detalhes { display: grid; gap: 34px; padding-block: 90px 50px; }
+  .bloco { display: grid; gap: 10px; align-content: start; justify-items: start; }
+  .bloco h2 { font-size: var(--t-l); color: var(--petroleo); }
+  .sub-h { margin-top: 14px; }
+  .end { font-size: var(--t-m); }
+  .forte { font-weight: 700; color: var(--petroleo); padding-block: 10px; }
+  .horas { display: grid; grid-template-columns: auto 1fr; gap: 4px 20px; margin: 0; }
+  .horas dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .contatos, .servicos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .festa { background: var(--massa); padding-block: 60px; }
+  .festa-in { display: grid; gap: 22px; }
+  .festa h2 { font-size: var(--t-xl); color: var(--petroleo); margin-bottom: 14px; }
+  .form-caixa { background: var(--farinha-2); border-radius: 26px; padding: 20px 18px; }
+  .outras { padding-block: 56px 80px; }
+  .outras h2 { font-size: var(--t-l); color: var(--petroleo); margin-bottom: 14px; }
+  .outras ul { display: grid; }
+  .outras a { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 14px; padding: 16px 0; border-bottom: 1px dashed color-mix(in srgb, var(--chocolate) 25%, transparent); text-decoration: none; }
+  .outras .n { font-family: var(--f-display); font-weight: 600; font-size: 1.6rem; color: var(--petroleo); }
+  .outras .b { color: var(--tinta-suave); }
+  .outras :global(svg) { width: 22px; align-self: center; color: var(--petroleo); transition: transform 0.2s; }
+  @media (hover: hover) { .outras a:hover :global(svg) { transform: translateX(4px); } }
+  @media (min-width: 1024px) {
+    .topo-u { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .foto { order: 2; }
+    .foto :global(.foto) { height: 100%; max-height: 640px; aspect-ratio: auto !important; border-radius: 0 0 0 220px; }
+    .cab { width: auto; margin: 0; padding: 70px 56px 90px max(var(--gutter), calc((100vw - var(--max)) / 2)); align-content: center; }
+    .detalhes { grid-template-columns: repeat(3, 1fr); padding-top: 130px; }
+    .festa-in { grid-template-columns: 1fr 460px; gap: 60px; align-items: center; }
+    .festa h2 { font-size: var(--t-2xl); }
+    .outras ul { grid-template-columns: repeat(3, 1fr); gap: 0 40px; }
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Derretido from '../components/Derretido.astro';
+import Icone from '../components/Icone.astro';
+import { breadcrumb } from '../lib/seo';
+const semana = [
+  ['Seg', true], ['Ter', true], ['Qua', true], ['Qui', true], ['Sex', false], ['Sáb', false], ['Dom', false],
+] as const;
+---
+<Base
+  titulo="Nalu Mania · Segunda a quinta com até 25% off e entrega grátis"
+  descricao="De segunda a quinta é dia de Nalu Mania: pizzas artesanais com até 25% de desconto e entrega grátis no pedido pelo site."
+  jsonld={[breadcrumb([['Início', '/'], ['Nalu Mania', '/nalu-mania']])]}
+>
+  <section class="mania" data-hero>
+    <div class="wrap in">
+      <h1 class="chamada">Nalu Mania</h1>
+      <p class="oferta">Segunda a quinta, pizzas artesanais com <b>até 25% de desconto</b> e <b>entrega grátis</b>.</p>
+      <ol class="semana" aria-label="Dias da Nalu Mania">
+        {semana.map(([d, on], i) => <li class:list={{ on }} data-dia={(i + 1) % 7}><span>{d}</span></li>)}
+      </ol>
+      <a href="#escolher-unidade" data-u-pedido class="btn btn--escuro"><Icone nome="sacola" />Pedir agora</a>
+    </div>
+  </section>
+  <Derretido cor="var(--ambar)" variante={3} />
+  <section class="wrap regras">
+    <h2 class="chamada">Como funciona</h2>
+    <ul>
+      <li>Vale de segunda a quinta, no fuso de Fortaleza.</li>
+      <li>Desconto de até 25% em pizzas artesanais selecionadas. <span class="confirmar">[CONFIRMAR: quais sabores e tamanhos]</span></li>
+      <li>Entrega grátis no pedido pelo site. <span class="confirmar">[CONFIRMAR: raio e valor mínimo]</span></li>
+      <li><span class="confirmar">[CONFIRMAR: vale nas 4 casas? Vale no salão?]</span></li>
+    </ul>
+  </section>
+</Base>
+<style>
+  .mania { background: var(--ambar); color: var(--petroleo-noite); padding-block: 40px 20px; }
+  .in { display: grid; gap: 18px; justify-items: start; }
+  h1 { font-size: clamp(3rem, 1.5rem + 9vw, 8rem); color: var(--petroleo); }
+  .oferta { font-size: var(--t-l); max-width: 28ch; line-height: 1.3; }
+  .semana { list-style: none; padding: 0; margin: 6px 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; width: min(100%, 520px); }
+  .semana li { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; font-family: var(--f-display); font-weight: 600; font-size: clamp(0.8rem, 3.4vw, 1.05rem); border: 2px solid color-mix(in srgb, var(--petroleo-noite) 25%, transparent); opacity: 0.6; }
+  .semana li.on { background: var(--petroleo); color: var(--ambar); border-color: var(--petroleo); opacity: 1; }
+  .semana li.hoje { outline: 3px solid var(--petroleo-noite); outline-offset: 3px; }
+  .regras { padding-block: 100px 80px; display: grid; gap: 18px; max-width: 760px; }
+  .regras h2 { font-size: var(--t-xl); color: var(--petroleo); }
+  .regras ul { display: grid; gap: 12px; }
+  .regras li { padding-left: 28px; position: relative; font-size: var(--t-m); }
+  .regras li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 12px; height: 12px; border-radius: 50%; background: var(--ambar); box-shadow: inset 0 0 0 3px var(--petroleo); }
+  @media (min-width: 1024px) { .mania { padding-block: 80px 30px; } }
+</style>
+<script>
+  import { agoraFortaleza } from '../lib/horario';
+  const d = agoraFortaleza().dia;
+  document.querySelector(`.semana [data-dia="${d}"]`)?.classList.add('hoje');
+</script>

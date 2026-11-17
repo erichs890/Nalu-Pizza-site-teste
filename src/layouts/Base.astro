@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+import fredoka from '@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2?url';
+import { site } from '../config/site';
+import Cabecalho from '../components/Cabecalho.astro';
+import Rodape from '../components/Rodape.astro';
+import SeletorUnidade from '../components/SeletorUnidade.astro';
+import BarraInferior from '../components/BarraInferior.astro';
+
+interface Props {
+  titulo: string;
+  descricao?: string;
+  og?: string; // caminho em /public, ex.: '/og/coco.png'
+  jsonld?: object[];
+  semBarra?: boolean;
+}
+const { titulo, descricao = site.descricaoPadrao, og = '/og/nalu.png', jsonld = [], semBarra = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0F4C4C" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <slot name="head" />
+    <link rel="preload" href={fredoka} as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={site.nome} />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(og, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+    <Cabecalho />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Rodape />
+    {!semBarra && <BarraInferior />}
+    <SeletorUnidade />
+    <svg class="grao" aria-hidden="true"><filter id="grao-f"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grao-f)" /></svg>
+  </body>
+</html>

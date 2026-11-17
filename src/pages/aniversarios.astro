@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import Selo from '../components/Selo.astro';
+import FormAniversario from '../components/FormAniversario.astro';
+import { site } from '../config/site';
+import { breadcrumb } from '../lib/seo';
+---
+<Base
+  titulo="Aniversário na Nalu Pizzas · Festas e reservas em Fortaleza"
+  descricao={`Comemore na Nalu: reúna ${site.aniversario.convidadosMinimos} convidados e ganhe a famosa ${site.aniversario.brinde}. Reserve pelo WhatsApp em segundos.`}
+  jsonld={[breadcrumb([['Início', '/'], ['Aniversários', '/aniversarios']])]}
+>
+  <section class="aniv" data-hero>
+    <div class="wrap in">
+      <div class="txt">
+        <h1 class="chamada">Celebre do seu jeito na Nalu</h1>
+        <p class="lede">Mesa grande, pizza no meio, todo mundo junto.</p>
+        <div class="oferta">
+          <Selo volta="aniversário na nalu · aniversário na nalu · " miolo={String(site.aniversario.convidadosMinimos)} sub="convidados" cor="petroleo" tamanho="112px" />
+          <p>Reúna {site.aniversario.convidadosMinimos} convidados e ganhe a nossa famosa <b class="sabor">{site.aniversario.brinde}</b>. <span class="confirmar">[CONFIRMAR: regras, dias e casas válidas]</span></p>
+        </div>
+      </div>
+      <div class="form-caixa">
+        <h2 class="chamada">Monte o pedido de reserva</h2>
+        <FormAniversario id="aniv-pagina" />
+      </div>
+    </div>
+  </section>
+  <section class="wrap fotos">
+    <Foto src="familia/aniversario-mesa.jpg" alt="Mesa de aniversário na Nalu com pizzas e bolo" pede="mesa de aniversário real, crianças em volta, pizza no centro" proporcao="16/9" sizes="(min-width: 1024px) 66vw, 100vw" tom="massa" class="f1" />
+    <Foto src="doces/pizza-suflair.jpg" alt="A Pizza Suflair" pede="Pizza Suflair em close, de cima" proporcao="1/1" sizes="(min-width: 1024px) 33vw, 100vw" tom="chocolate" class="f2" />
+  </section>
+</Base>
+<style>
+  .aniv { background: var(--massa); padding-block: 32px 56px; }
+  .in { display: grid; gap: 28px; }
+  .txt { display: grid; gap: 14px; align-content: start; }
+  h1 { font-size: var(--t-3xl); color: var(--petroleo); max-width: 11ch; }
+  .lede { font-family: var(--f-sabor); font-style: italic; font-size: var(--t-l); color: var(--chocolate); }
+  .oferta { display: flex; gap: 16px; align-items: center; }
+  .oferta p { max-width: 32ch; }
+  .oferta b { font-size: 1.2em; color: var(--chocolate); }
+  .form-caixa { background: var(--farinha-2); border-radius: 28px; padding: 22px 18px; display: grid; gap: 16px; }
+  .form-caixa h2 { font-size: var(--t-l); color: var(--petroleo); }
+  .fotos { display: grid; gap: 12px; padding-block: 40px 80px; }
+  .fotos :global(.foto) { border-radius: var(--r-card); }
+  @media (min-width: 1024px) {
+    .aniv { padding-block: 80px; }
+    .in { grid-template-columns: 1fr 480px; gap: 80px; align-items: center; }
+    .form-caixa { padding: 32px; }
+    .fotos { grid-template-columns: 2fr 1fr; gap: 20px; align-items: end; }
+  }
+</style>

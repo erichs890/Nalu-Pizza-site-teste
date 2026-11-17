@@ -1,0 +1,19 @@
+---
+// Divisor "queijo derretendo": a cor `cor` escorre sobre a seção seguinte.
+// Use no fim de uma seção com a cor dela (posicao="baixo") ou no topo da próxima (posicao="topo").
+interface Props { cor: string; posicao?: 'baixo' | 'topo'; variante?: 1 | 2 | 3; class?: string; }
+const { cor, posicao = 'baixo', variante = 1, class: cls } = Astro.props;
+const formas = {
+  1: 'M0 0H1440V34C1380 34 1350 60 1330 92C1312 120 1280 120 1268 92C1250 52 1210 38 1150 40C1060 44 1010 70 990 110C978 136 948 138 936 110C916 64 880 42 800 42C700 42 650 54 610 72C580 86 568 128 548 150C532 168 506 164 498 140C486 100 470 62 400 52C320 40 260 54 220 70C186 84 176 104 160 118C146 130 126 126 120 108C110 78 80 40 0 36Z',
+  2: 'M0 0H1440V40C1360 46 1320 54 1290 80C1262 104 1252 146 1226 150C1204 154 1194 132 1190 112C1182 74 1150 54 1080 50C980 44 930 60 890 76C860 88 846 112 828 126C812 138 790 134 784 116C770 76 730 56 660 54C560 52 520 66 490 90C470 106 462 136 440 140C420 144 410 126 406 108C396 70 350 50 270 48C190 46 120 58 70 76C40 86 20 92 0 92Z',
+  3: 'M0 0H1440V60C1400 60 1376 68 1360 84C1344 100 1340 128 1318 130C1298 132 1290 112 1286 96C1278 66 1250 50 1190 48H900C840 48 820 70 806 98C796 118 778 120 768 102C754 74 730 52 660 50H400C340 50 316 66 302 90C292 108 290 136 268 138C248 140 240 122 236 104C228 72 196 54 140 54H0Z',
+};
+---
+<div class:list={['derretido', posicao, cls]} aria-hidden="true">
+  <svg viewBox="0 0 1440 160" preserveAspectRatio="none"><path d={formas[variante]} fill={cor} /></svg>
+</div>
+<style>
+  .derretido { position: relative; height: clamp(44px, 7vw, 110px); margin-bottom: calc(-1 * clamp(44px, 7vw, 110px)); z-index: 2; pointer-events: none; }
+  .derretido.topo { transform: scaleY(-1); margin-bottom: -1px; margin-top: 0; }
+  .derretido svg { width: 100%; height: 100%; display: block; }
+</style>

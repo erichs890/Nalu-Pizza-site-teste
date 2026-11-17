@@ -1,0 +1,18 @@
+---
+import { brl } from '../lib/horario';
+interface Props { valor: number | null; tamanho?: string; class?: string; }
+const { valor, tamanho, class: cls } = Astro.props;
+---
+<span class:list={['preco-item', cls]} data-tamanho={tamanho ?? ''}>
+  {tamanho && <span class="tam">{tamanho}</span>}
+  {valor === null
+    ? <span class="preco" title="Preço a confirmar com o cardápio">R$ <span aria-label="a confirmar">—</span></span>
+    : <span class="preco">{brl(valor)}</span>}
+</span>
+<style>
+  .preco-item { display: inline-flex; align-items: baseline; gap: 0.4em; }
+  .tam { font-size: 0.8125rem; font-weight: 600; color: var(--tinta-suave); }
+  .preco { font-weight: 700; color: var(--tomate); }
+  :global(.on-dark) .preco { color: var(--ambar); }
+  :global(.on-dark) .tam { color: inherit; opacity: 0.8; }
+</style>

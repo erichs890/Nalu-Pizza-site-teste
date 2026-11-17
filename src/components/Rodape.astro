@@ -1,0 +1,63 @@
+---
+import { unidades, whatsFmt } from '../config/unidades';
+import { site } from '../config/site';
+import Logo from './Logo.astro';
+import Derretido from './Derretido.astro';
+import Padrao from './Padrao.astro';
+import Icone from './Icone.astro';
+const ano = new Date().getFullYear();
+---
+<Derretido cor="var(--petroleo-noite)" posicao="topo" variante={2} />
+<footer class="rodape on-dark">
+  <Padrao opacidade={0.07} />
+  <div class="wrap grade">
+    <div class="marca">
+      <Logo altura={64} />
+      <p class="anos"><b>{site.anosDeTradicao} anos</b> de Nalu.<br />A Nalu é mais que pizza: é experiência em família.</p>
+      <a class="insta link-sublinhado" href={site.instagram} target="_blank" rel="noopener"><Icone nome="insta" />{site.instagramHandle}</a>
+    </div>
+    <ul class="casas" id="contato">
+      {unidades.map((u) => (
+        <li>
+          <a href={`/unidades/${u.slug}`} class="nome">Nalu {u.nome}</a>
+          <span>{u.endereco}</span>
+          <span>{u.bairro} · {u.cidade}</span>
+          {u.telefone && <a href={`tel:+55${u.telefone.replace(/\D/g, '')}`}>{u.telefone}</a>}
+          {u.whatsapp && <a href={`https://wa.me/${u.whatsapp}`} target="_blank" rel="noopener">WhatsApp {whatsFmt(u.whatsapp)}</a>}
+        </li>
+      ))}
+    </ul>
+    <nav class="links" aria-label="Rodapé">
+      <a href="/cardapio">Cardápio</a>
+      <a href="/unidades">As 4 casas</a>
+      <a href="/nalu-mania">Nalu Mania</a>
+      <a href="/aniversarios">Aniversários</a>
+    </nav>
+  </div>
+  <div class="wrap fim">
+    <span>© {ano} Grupo Nalu · Nalu Pizzas & Massas</span>
+    <span>{site.hashtag}</span>
+  </div>
+</footer>
+<style>
+  .rodape { position: relative; background: var(--petroleo-noite); color: var(--farinha); padding: clamp(40px, 6vw, 72px) 0 calc(110px + env(safe-area-inset-bottom)); overflow: hidden; }
+  .grade { position: relative; z-index: 1; display: grid; gap: 40px; }
+  .marca { display: grid; gap: 16px; justify-items: start; }
+  .anos { max-width: 30ch; opacity: 0.9; }
+  .anos b { font-family: var(--f-display); color: var(--ambar); font-weight: 600; }
+  .insta { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; font-weight: 600; }
+  .insta :global(svg) { width: 22px; }
+  .casas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 24px 28px; }
+  .casas li { display: grid; gap: 2px; font-size: 0.9375rem; opacity: 0.92; align-content: start; }
+  .casas .nome { font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; color: var(--ambar); text-decoration: none; padding-block: 6px; }
+  .casas a[href^='tel'], .casas a[href^='https://wa'] { min-height: 40px; display: inline-flex; align-items: center; }
+  .confirmar { color: var(--petroleo-noite); justify-self: start; margin-top: 4px; }
+  .links { display: flex; flex-wrap: wrap; gap: 4px 22px; font-weight: 600; }
+  .links a { min-height: 48px; display: inline-flex; align-items: center; text-decoration: none; }
+  .fim { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 40px; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--farinha) 15%, transparent); font-size: var(--t-xs); opacity: 0.75; }
+  @media (min-width: 1024px) {
+    .rodape { padding-bottom: 40px; }
+    .grade { grid-template-columns: 1fr 2.2fr; }
+    .links { grid-column: 2; }
+  }
+</style>

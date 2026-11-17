@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Padrao from '../components/Padrao.astro';
+---
+<Base titulo="Página não encontrada · Nalu Pizzas" descricao="Essa fatia sumiu.">
+  <section class="nf on-dark" data-hero>
+    <Padrao opacidade={0.12} />
+    <div class="wrap in">
+      <svg class="fatia" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" fill="var(--massa)" />
+        <circle cx="100" cy="100" r="74" fill="var(--ambar)" />
+        <path d="M100 100 L186 100 A86 86 0 0 0 143 25.5 Z" fill="var(--petroleo)" />
+        <circle cx="70" cy="80" r="9" fill="var(--tomate)" /><circle cx="95" cy="140" r="9" fill="var(--tomate)" /><circle cx="140" cy="130" r="9" fill="var(--tomate)" /><circle cx="60" cy="125" r="7" fill="var(--tomate)" />
+      </svg>
+      <h1 class="chamada">Essa fatia sumiu.</h1>
+      <p>Alguém comeu. O cardápio inteiro continua aqui.</p>
+      <a href="/cardapio" class="btn">Ver cardápio</a>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { position: relative; background: var(--petroleo); color: var(--farinha-2); min-height: calc(100svh - var(--header-h)); display: grid; align-items: center; overflow: hidden; }
+  .in { position: relative; z-index: 1; display: grid; gap: 16px; justify-items: center; text-align: center; padding-block: 40px 80px; }
+  .fatia { width: min(220px, 50vw); }
+  h1 { font-size: var(--t-2xl); color: var(--ambar); }
+</style>

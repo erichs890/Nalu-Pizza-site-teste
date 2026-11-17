@@ -1,0 +1,30 @@
+---
+// Selo redondo com texto em volta e um miolo grande.
+interface Props { volta: string; miolo: string; sub?: string; tamanho?: string; cor?: 'ambar' | 'farinha' | 'petroleo'; girar?: boolean; class?: string; }
+const { volta, miolo, sub, tamanho = '120px', cor = 'ambar', girar = false, class: cls } = Astro.props;
+const id = 's' + Math.random().toString(36).slice(2, 7);
+---
+<div class:list={['selo', `selo--${cor}`, { girar }, cls]} style={`--t:${tamanho}`} role="img" aria-label={`${miolo} ${sub ?? ''} · ${volta}`}>
+  <svg viewBox="0 0 200 200" aria-hidden="true">
+    <defs><path id={id} d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs>
+    <circle cx="100" cy="100" r="98" class="fundo" />
+    <circle cx="100" cy="100" r="88" class="aro" />
+    <text class="volta"><textPath href={`#${id}`} startOffset="0" textLength="460">{volta}</textPath></text>
+  </svg>
+  <span class="miolo" aria-hidden="true"><b>{miolo}</b>{sub && <small>{sub}</small>}</span>
+</div>
+<style>
+  .selo { position: relative; width: var(--t); aspect-ratio: 1; flex: none; }
+  .selo svg { width: 100%; height: 100%; }
+  .girar svg { animation: gira 40s linear infinite; }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  .fundo { fill: var(--sb); }
+  .aro { fill: none; stroke: var(--sf); stroke-width: 1.4; stroke-dasharray: 2 5; opacity: 0.6; }
+  .volta { font-family: var(--f-display); font-weight: 600; font-size: 19px; letter-spacing: 3px; fill: var(--sf); text-transform: uppercase; }
+  .miolo { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; color: var(--sf); font-family: var(--f-display); line-height: 0.9; }
+  .miolo b { font-size: calc(var(--t) * 0.3); font-weight: 650; }
+  .miolo small { font-size: calc(var(--t) * 0.078); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 0.15em; }
+  .selo--ambar { --sb: var(--ambar); --sf: var(--petroleo-noite); }
+  .selo--farinha { --sb: var(--farinha-2); --sf: var(--petroleo); }
+  .selo--petroleo { --sb: var(--petroleo); --sf: var(--farinha); }
+</style>

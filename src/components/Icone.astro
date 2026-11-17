@@ -1,0 +1,22 @@
+---
+// Ícones de traço próprio, arredondados como o logo. Só onde ajudam a ler a ação.
+interface Props { nome: keyof typeof paths; class?: string; }
+const paths = {
+  pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/>',
+  sacola: '<path d="M5.5 8.5h13l-1 11.2a1.5 1.5 0 0 1-1.5 1.3H8a1.5 1.5 0 0 1-1.5-1.3Z"/><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/>',
+  cardapio: '<path d="M6 3.5h9.5L19 7v13.5H6Z"/><path d="M9.5 10h6M9.5 13.5h6M9.5 17h3.5"/>',
+  casas: '<path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/>',
+  whats: '<path d="M4.5 19.5 5.6 16A8 8 0 1 1 8.4 18.7Z"/><path d="M9.3 8.8c0 3.2 2.7 5.9 5.9 5.9l1-1.4-1.9-1-1 .8a4 4 0 0 1-2.4-2.4l.8-1-1-1.9Z"/>',
+  fone: '<path d="M7 3.8 9.6 4l1.2 4-2 1.3a10 10 0 0 0 5.9 5.9l1.3-2 4 1.2.2 2.6a2 2 0 0 1-2.1 2A15.6 15.6 0 0 1 5 5.9a2 2 0 0 1 2-2.1Z"/>',
+  rota: '<circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8.2 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.8"/>',
+  seta: '<path d="m9 5 7 7-7 7"/>',
+  baixo: '<path d="m6 9 6 6 6-6"/>',
+  fechar: '<path d="M6 6l12 12M18 6 6 18"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h10"/>',
+  mira: '<circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="1.8"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>',
+  insta: '<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r=".6"/>',
+  busca: '<circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/>',
+};
+const { nome, class: cls } = Astro.props;
+---
+<svg class:list={["ico", cls]} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={paths[nome]} />

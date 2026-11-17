@@ -1,0 +1,166 @@
+---
+// "Qual Nalu é a sua?" — bottom sheet no celular, painel ancorado no desktop.
+// <dialog> nativo: foco preso, Esc fecha, fundo inerte.
+import { unidades, servicoNome } from '../config/unidades';
+import Icone from './Icone.astro';
+---
+<dialog id="seletor-unidade" class="seletor" aria-labelledby="seletor-titulo">
+  <div class="painel">
+    <div class="alca" data-alca aria-hidden="true"><span></span></div>
+    <div class="topo">
+      <h2 id="seletor-titulo" class="chamada">Qual Nalu é a sua?</h2>
+      <button type="button" class="fechar" data-fechar aria-label="Fechar"><Icone nome="fechar" /></button>
+    </div>
+    <p class="intencao" data-intencao-texto hidden>Escolha a casa e já abrimos o pedido dela.</p>
+    <button type="button" class="localizar" data-localizar>
+      <Icone nome="mira" /> <span data-localizar-texto>Usar minha localização</span>
+    </button>
+    <ul class="lista">
+      {unidades.map((u) => (
+        <li>
+          <button type="button" class="opcao" data-escolher={u.slug} aria-pressed="false">
+            <span class="linha1">
+              <span class="nome">Nalu {u.nome}</span>
+              <span class="status" data-status-slug={u.slug}>Horário a confirmar</span>
+            </span>
+            <span class="end">{u.endereco} · {u.bairro}{u.cidade !== 'Fortaleza' ? ` · ${u.cidade}` : ''}</span>
+            {u.servicos.length > 0 && (
+              <span class="servicos">{u.servicos.map((s) => <span class="chip">{servicoNome[s]}</span>)}</span>
+            )}
+            {!u.pedido && <span class="sem-pedido">Pedido online em breve</span>}
+            <span class="perto" data-perto hidden>Mais perto de você</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</dialog>
+
+<style>
+  .seletor { padding: 0; border: 0; background: transparent; max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; overflow: hidden; }
+  .seletor::backdrop { background: color-mix(in srgb, var(--petroleo-noite) 55%, transparent); }
+  .seletor[open] { display: flex; align-items: flex-end; justify-content: center; }
+  .painel {
+    position: relative; width: 100%; max-height: 88svh; overflow-y: auto; overscroll-behavior: contain;
+    background: var(--farinha-2); border-radius: 26px 26px 0 0;
+    padding: 0 16px calc(20px + env(safe-area-inset-bottom));
+    animation: sobe 0.32s var(--ease);
+    touch-action: pan-y;
+  }
+  @keyframes sobe { from { transform: translateY(40%); opacity: 0.4; } }
+  .alca { display: grid; place-items: center; height: 26px; cursor: grab; touch-action: none; position: sticky; top: 0; background: var(--farinha-2); z-index: 1; }
+  .alca span { width: 44px; height: 5px; border-radius: 9px; background: color-mix(in srgb, var(--tinta) 22%, transparent); }
+  .topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .topo h2 { font-size: 1.6rem; color: var(--petroleo); }
+  .fechar { width: 48px; height: 48px; border: 0; border-radius: 50%; background: color-mix(in srgb, var(--petroleo) 8%, transparent); display: grid; place-items: center; cursor: pointer; color: var(--petroleo); }
+  .fechar :global(svg) { width: 22px; }
+  .intencao { color: var(--tinta-suave); margin-bottom: 10px; }
+  .localizar { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 0 16px; margin-bottom: 12px; border: 2px dashed color-mix(in srgb, var(--petroleo) 35%, transparent); border-radius: 16px; background: transparent; color: var(--petroleo); font-weight: 600; cursor: pointer; }
+  .localizar :global(svg) { width: 22px; flex: none; }
+  .lista { display: grid; gap: 10px; }
+  .opcao {
+    width: 100%; text-align: left; display: grid; gap: 6px; padding: 14px 16px;
+    border: 2px solid transparent; border-radius: 18px; background: #fff8ec; cursor: pointer;
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--massa) 90%, transparent);
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  @media (hover: hover) { .opcao:hover { border-color: color-mix(in srgb, var(--petroleo) 30%, transparent); } }
+  .opcao[aria-pressed='true'] { border-color: var(--petroleo); background: color-mix(in srgb, var(--petroleo) 6%, #fff8ec); }
+  .linha1 { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .nome { font-family: var(--f-display); font-weight: 600; font-size: 1.3rem; color: var(--petroleo); }
+  .end { color: var(--tinta-suave); font-size: 0.9375rem; }
+  .servicos { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sem-pedido, .perto { font-size: var(--t-xs); font-weight: 600; color: var(--tomate); }
+  .perto { color: var(--petroleo); background: var(--ambar); justify-self: start; padding: 2px 10px; border-radius: 99px; }
+
+  @media (min-width: 768px) {
+    .seletor[open] { align-items: flex-start; justify-content: flex-end; padding: calc(var(--header-h) + 10px) max(var(--gutter), calc((100vw - var(--max)) / 2)) 0; }
+    .seletor::backdrop { background: color-mix(in srgb, var(--petroleo-noite) 30%, transparent); }
+    .painel { width: 440px; border-radius: 24px; max-height: calc(100svh - var(--header-h) - 30px); padding: 18px 18px 18px; box-shadow: 0 24px 60px -20px rgba(10, 46, 46, 0.45); animation: desce 0.22s var(--ease); }
+    @keyframes desce { from { transform: translateY(-8px); opacity: 0; } }
+    .alca { display: none; }
+  }
+</style>
+
+<script>
+  import { unidades } from '../config/unidades';
+  import { lerEscolha, salvarEscolha, aplicar, maisProxima } from '../lib/escolha';
+
+  const dlg = document.getElementById('seletor-unidade') as HTMLDialogElement;
+  const painel = dlg.querySelector<HTMLElement>('.painel')!;
+  let intencao: 'pedir' | null = null;
+
+  function marcar() {
+    const atual = lerEscolha()?.slug;
+    dlg.querySelectorAll<HTMLButtonElement>('[data-escolher]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.escolher === atual)));
+  }
+
+  function abrir(int: 'pedir' | null = null) {
+    intencao = int;
+    dlg.querySelector<HTMLElement>('[data-intencao-texto]')!.hidden = int !== 'pedir';
+    marcar();
+    aplicar();
+    painel.style.transform = '';
+    dlg.showModal();
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function fechar() { dlg.close(); }
+  dlg.addEventListener('close', () => { document.documentElement.style.overflow = ''; });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) fechar(); });
+  dlg.querySelector('[data-fechar]')!.addEventListener('click', fechar);
+
+  // Qualquer link/botão com data-abre-seletor ou href #escolher-unidade abre o seletor
+  document.addEventListener('click', (e) => {
+    const alvo = (e.target as HTMLElement).closest<HTMLElement>('[data-abre-seletor], a[href="#escolher-unidade"]');
+    if (!alvo) return;
+    e.preventDefault();
+    abrir(alvo.hasAttribute('data-u-pedido') || alvo.dataset.intencao === 'pedir' ? 'pedir' : null);
+  });
+
+  dlg.querySelectorAll<HTMLButtonElement>('[data-escolher]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const slug = b.dataset.escolher!;
+      salvarEscolha(slug);
+      const u = unidades.find((x) => x.slug === slug);
+      fechar();
+      if (intencao === 'pedir' && u?.pedido) window.open(u.pedido, '_blank', 'noopener');
+    }),
+  );
+
+  // Localização: só quando a pessoa toca no botão
+  const btnLoc = dlg.querySelector<HTMLButtonElement>('[data-localizar]')!;
+  const txtLoc = dlg.querySelector<HTMLElement>('[data-localizar-texto]')!;
+  btnLoc.addEventListener('click', () => {
+    if (!('geolocation' in navigator)) { txtLoc.textContent = 'Seu navegador não informa localização'; return; }
+    txtLoc.textContent = 'Procurando a Nalu mais perto…';
+    navigator.geolocation.getCurrentPosition(
+      (p) => {
+        const { unidade, km } = maisProxima(p.coords.latitude, p.coords.longitude);
+        dlg.querySelectorAll<HTMLElement>('[data-perto]').forEach((el) => (el.hidden = true));
+        const btn = dlg.querySelector<HTMLElement>(`[data-escolher="${unidade.slug}"]`);
+        btn?.querySelector<HTMLElement>('[data-perto]')?.removeAttribute('hidden');
+        btn?.focus();
+        txtLoc.textContent = `A mais perto: Nalu ${unidade.nome} (~${km < 1 ? '<1' : Math.round(km)} km)`;
+      },
+      () => { txtLoc.textContent = 'Sem localização. Escolha na lista.'; },
+      { timeout: 8000, maximumAge: 600000 },
+    );
+  });
+
+  // Arrastar para fechar (celular)
+  const alca = dlg.querySelector<HTMLElement>('[data-alca]')!;
+  let y0 = 0, dy = 0, arrastando = false;
+  alca.addEventListener('pointerdown', (e) => { arrastando = true; y0 = e.clientY; dy = 0; alca.setPointerCapture(e.pointerId); painel.style.transition = 'none'; });
+  alca.addEventListener('pointermove', (e) => { if (!arrastando) return; dy = Math.max(0, e.clientY - y0); painel.style.transform = `translateY(${dy}px)`; });
+  const soltar = () => {
+    if (!arrastando) return;
+    arrastando = false;
+    painel.style.transition = 'transform .2s';
+    if (dy > 90) fechar(); else painel.style.transform = '';
+  };
+  alca.addEventListener('pointerup', soltar);
+  alca.addEventListener('pointercancel', soltar);
+
+  aplicar();
+  setInterval(() => aplicar(), 60000);
+</script>

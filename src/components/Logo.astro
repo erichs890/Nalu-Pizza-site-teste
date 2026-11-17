@@ -1,0 +1,23 @@
+---
+// Usa o arquivo original da marca quando existir em src/assets/brand/.
+// Nomes esperados: logo-nalu.svg (versão clara, para fundo petróleo) e logo-nalu-escuro.svg.
+// Enquanto o arquivo não chega, mostra um marcador provisório (NÃO é o logo).
+interface Props { variante?: 'clara' | 'escura'; class?: string; altura?: number; }
+const { variante = 'clara', class: cls, altura = 40 } = Astro.props;
+const arquivos = import.meta.glob<{ default: ImageMetadata }>('/src/assets/brand/logo-nalu*.{svg,png}', { eager: true });
+const chave = Object.keys(arquivos).find((k) => (variante === 'escura' ? k.includes('escuro') : !k.includes('escuro')));
+const logo = chave ? arquivos[chave].default : null;
+---
+{logo ? (
+  <img src={logo.src} width={Math.round((logo.width / logo.height) * altura)} height={altura} alt="Nalu Pizzas" class={cls} />
+) : (
+  <span class:list={['logo-provisorio', variante, cls]} style={`--h:${altura}px`} title="Marcador provisório: substituir pelo logo original em src/assets/brand/">
+    <span class="w">nalu</span><span class="p">PIZZAS</span>
+  </span>
+)}
+<style>
+  .logo-provisorio { display: inline-grid; justify-items: center; line-height: 1; height: var(--h); align-content: center; font-family: var(--f-display); color: var(--farinha-2); }
+  .logo-provisorio.escura { color: var(--petroleo); }
+  .w { font-size: calc(var(--h) * 0.78); font-weight: 600; letter-spacing: -0.02em; margin-top: -0.12em; }
+  .p { font-size: calc(var(--h) * 0.2); font-weight: 600; letter-spacing: 0.42em; margin-right: -0.42em; margin-top: 0.08em; }
+</style>

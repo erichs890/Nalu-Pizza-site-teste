@@ -1,0 +1,1642 @@
+{
+  "atualizadoEm": null,
+  "fonte": "Cardápio - NALU 2026.pdf",
+  "tamanhos": [
+    "Brotinho",
+    "Grande"
+  ],
+  "observacoes": [
+    "Opções com massa integral: Brotinho + R$ 5,00 · Grande + R$ 7,00.",
+    "Taxa de serviço opcional de 10% sobre o total da conta.",
+    "Em dias de apresentações musicais, será cobrado couvert artístico.",
+    "O consumo de bebidas alcoólicas é permitido somente para maiores de 18 anos."
+  ],
+  "categorias": [
+    {
+      "id": "pizzas-queridinhas",
+      "nome": "Queridinhas da Nalu"
+    },
+    {
+      "id": "pizzas-forno",
+      "nome": "Do Forno ao Coração"
+    },
+    {
+      "id": "pizzas-chef",
+      "nome": "Especiais do Chef"
+    },
+    {
+      "id": "pizzas-doces",
+      "nome": "Pizzas doces"
+    },
+    {
+      "id": "mini-pizzas",
+      "nome": "Mini pizzas"
+    },
+    {
+      "id": "entradas",
+      "nome": "Entradas & petiscos"
+    },
+    {
+      "id": "saladas",
+      "nome": "Saladas"
+    },
+    {
+      "id": "massas",
+      "nome": "Massas"
+    },
+    {
+      "id": "sobremesas",
+      "nome": "Sobremesas"
+    },
+    {
+      "id": "bebidas",
+      "nome": "Bebidas"
+    },
+    {
+      "id": "sucos",
+      "nome": "Sucos"
+    },
+    {
+      "id": "cervejas",
+      "nome": "Cervejas"
+    },
+    {
+      "id": "caipirinhas",
+      "nome": "Caipirinhas & caipiroskas"
+    },
+    {
+      "id": "drinks",
+      "nome": "Drinks"
+    },
+    {
+      "id": "destilados",
+      "nome": "Destilados"
+    }
+  ],
+  "itens": [
+    {
+      "id": "couvert",
+      "nome": "Couvert",
+      "descricao": "Casquinhas crocantes, acompanhadas de geleia de pimenta, pesto de azeitona preta, maionese aioli e pasta de calabresa. Uma seleção especial para abrir o apetite!",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 29.9,
+          "codigo": "113"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "mini-pastel-queijo",
+      "nome": "Mini pastel queijo",
+      "descricao": "08 pastéis quentinhos, crocantes por fora e recheados com queijo coalho derretido, irresistíveis a cada mordida.",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "120"
+        }
+      ]
+    },
+    {
+      "id": "mini-pastel-camarao",
+      "nome": "Mini pastel camarão",
+      "descricao": "08 pastéis quentinhos, crocantes por fora, recheados com Catupiry original e camarões suculentos, irresistíveis a cada mordida.",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 33.9,
+          "codigo": "125"
+        }
+      ]
+    },
+    {
+      "id": "mini-pastel-carne-de-sol",
+      "nome": "Mini pastel carne de sol",
+      "descricao": "08 pastéis quentinhos, crocantes por fora, recheados com carne de sol e queijo coalho derretido, irresistíveis a cada mordida.",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 29.9,
+          "codigo": "121"
+        }
+      ],
+      "favorita": true
+    },
+    {
+      "id": "casquinha-de-pepperoni",
+      "nome": "Casquinha de pepperoni",
+      "descricao": "Casquinhas crocantes de pepperoni, finalizadas com mussarela, azeite extra virgem e orégano.",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 29.9,
+          "codigo": "3017"
+        }
+      ]
+    },
+    {
+      "id": "casquinha-de-parmesao",
+      "nome": "Casquinha de parmesão",
+      "descricao": "Casquinhas crocantes de parmesão, finalizadas com azeite extra virgem e orégano.",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "111"
+        }
+      ]
+    },
+    {
+      "id": "casquinha-de-calabresa",
+      "nome": "Casquinha de calabresa",
+      "descricao": "Casquinhas crocantes de calabresa, finalizadas com mussarela, azeite extra virgem e orégano.",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "112"
+        }
+      ]
+    },
+    {
+      "id": "batata-frita-250g",
+      "nome": "Batata frita 250g",
+      "descricao": "Batatas fritas douradinhas e crocantes, servidas com nosso cremoso molho rosê. Adicional de bacon ou cheddar: R$ 5,00.",
+      "categoria": "entradas",
+      "precos": [
+        {
+          "valor": 24.9,
+          "codigo": "123"
+        }
+      ]
+    },
+    {
+      "id": "salada-especial-de-carne-do-sol",
+      "nome": "Salada especial de carne do sol",
+      "descricao": "Mix de folhas frescas, carne de sol desfiada, tomate cereja suculento, cebola roxa levemente refogada e queijo coalho. Tudo harmonizado com nosso irresistível molho especial de mostarda e mel.",
+      "categoria": "saladas",
+      "precos": [
+        {
+          "valor": 34.9,
+          "codigo": "116"
+        }
+      ]
+    },
+    {
+      "id": "salada-de-frango",
+      "nome": "Salada de frango",
+      "descricao": "Mix de folhas frescas, cubos de frango grelhado, parmesão e croutons crocantes. Finalizados com nosso delicioso molho especial de mostarda e mel.",
+      "categoria": "saladas",
+      "precos": [
+        {
+          "valor": 34.9,
+          "codigo": "117"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "salada-especial-de-camarao",
+      "nome": "Salada especial de camarão",
+      "descricao": "Mix de folhas frescas, tomate cereja, parmesão e cubos de abacaxi, combinados com camarões salteados e finalizados com nosso molho especial de mostarda e mel.",
+      "categoria": "saladas",
+      "precos": [
+        {
+          "valor": 39.9,
+          "codigo": "118"
+        }
+      ]
+    },
+    {
+      "id": "espaguete-a-carbonara-150g",
+      "nome": "Espaguete à carbonara 150g",
+      "descricao": "Espaguete servido com nosso molho artesanal à base de gema de ovos, bacon douradinho e parmesão, em porção individual.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "valor": 38.9,
+          "codigo": "181"
+        }
+      ],
+      "destaque": true
+    },
+    {
+      "id": "espaguete-a-bolonhesa-150g",
+      "nome": "Espaguete à bolonhesa 150g",
+      "descricao": "Espaguete servido com nosso molho à bolonhesa especial da casa, em porção individual.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "valor": 36.9,
+          "codigo": "179"
+        }
+      ]
+    },
+    {
+      "id": "penne-ao-gamberi-e-pesto-150g",
+      "nome": "Penne ao gamberi e pesto 150g",
+      "descricao": "Penne servido com nosso molho especial de pesto da casa e camarões grelhados, em porção individual.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "valor": 49.9,
+          "codigo": "187"
+        }
+      ]
+    },
+    {
+      "id": "penne-com-file-mignon-ao-molho-gorgonzola-150g",
+      "nome": "Penne com filé mignon ao molho gorgonzola 150g",
+      "descricao": "Penne servido com suculentos cubos de filé mignon, envolvidos em nosso cremoso molho gorgonzola, finalizado com crisp de Parma, em porção individual.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "valor": 49.9,
+          "codigo": "186"
+        }
+      ]
+    },
+    {
+      "id": "fettuccine-ao-gamberi-e-pomodoro-150g",
+      "nome": "Fettuccine ao gamberi e pomodoro 150g",
+      "descricao": "Fettuccine servido com camarões salteados ao molho pomodoro da casa, tomates cereja frescos, em porção individual.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "valor": 49.9,
+          "codigo": "185"
+        }
+      ],
+      "favorita": true
+    },
+    {
+      "id": "fettuccine-vegetariano",
+      "nome": "Fettuccine vegetariano",
+      "descricao": "Fettuccine servido com molho pesto da casa, tomate cereja confitado, parmesão ralado e toque de gergelim, em porção individual.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "valor": 39.9,
+          "codigo": "189"
+        }
+      ],
+      "tags": [
+        "novo",
+        "vegetariano"
+      ]
+    },
+    {
+      "id": "lasanha-napolitana",
+      "nome": "Lasanha napolitana",
+      "descricao": "Lasanha servida com camadas de mussarela, presunto suíno e Catupiry original, envoltas em nosso molho bechamel e gratinada.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "tamanho": "Individual",
+          "valor": 39.9,
+          "codigo": "182"
+        },
+        {
+          "tamanho": "Casal",
+          "valor": 69.9,
+          "codigo": "184"
+        }
+      ],
+      "favorita": true
+    },
+    {
+      "id": "lasanha-bolonhesa",
+      "nome": "Lasanha bolonhesa",
+      "descricao": "Lasanha servida com suculenta carne moída ao molho pomodoro especial da casa, coberta por mussarela derretida e parmesão gratinado.",
+      "categoria": "massas",
+      "precos": [
+        {
+          "tamanho": "Individual",
+          "valor": 39.9,
+          "codigo": "183"
+        },
+        {
+          "tamanho": "Casal",
+          "valor": 69.9,
+          "codigo": "193"
+        }
+      ]
+    },
+    {
+      "id": "mussarela",
+      "nome": "Mussarela",
+      "descricao": "Molho de tomate especial da casa, mussarela, tomates frescos e um toque de orégano. Uma combinação leve, saborosa e feita para agradar desde a primeira fatia.",
+      "categoria": "pizzas-queridinhas",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 29.9,
+          "codigo": "205"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 49.9,
+          "codigo": "130"
+        }
+      ]
+    },
+    {
+      "id": "marguerita",
+      "nome": "Marguerita",
+      "descricao": "Molho de tomate especial da casa, mussarela derretida, tomate, manjericão fresco e um toque aromático de orégano. Leve e saborosa!",
+      "categoria": "pizzas-queridinhas",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 30.9,
+          "codigo": "206"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 50.9,
+          "codigo": "131"
+        }
+      ],
+      "destaque": true
+    },
+    {
+      "id": "mista",
+      "nome": "Mista",
+      "descricao": "Molho de tomate especial da casa, mussarela derretida, presunto suíno selecionado e um toque de orégano. A clássica combinação da pizza mista que agrada a todos os paladares.",
+      "categoria": "pizzas-queridinhas",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 31.9,
+          "codigo": "208"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 51.9,
+          "codigo": "133"
+        }
+      ]
+    },
+    {
+      "id": "calabresa",
+      "nome": "Calabresa",
+      "descricao": "Molho de tomate especial da casa, mussarela, calabresa douradinha, cebola branca e orégano. Sabor marcante e suculento, do jeitinho que todo amante de pizza gosta.",
+      "categoria": "pizzas-queridinhas",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 31.9,
+          "codigo": "207"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 52.9,
+          "codigo": "132"
+        }
+      ],
+      "destaque": true
+    },
+    {
+      "id": "mussarela-crocante",
+      "nome": "Mussarela crocante",
+      "descricao": "Molho de tomate especial da casa, mussarela, tomates cereja, alho frito e gergelim branco. Finalizada com um toque de orégano para realçar o sabor.",
+      "categoria": "pizzas-queridinhas",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 31.9,
+          "codigo": "297"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 52.9,
+          "codigo": "159"
+        }
+      ]
+    },
+    {
+      "id": "bacon-com-alho-frito",
+      "nome": "Bacon com alho frito",
+      "descricao": "Molho de tomate especial da casa, mussarela derretida, bacon crocante e alho frito. Finalizada com manjericão fresco e um toque de orégano. Uma combinação cheia de sabor e personalidade.",
+      "categoria": "pizzas-queridinhas",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 33.9,
+          "codigo": "211"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 55.9,
+          "codigo": "136"
+        }
+      ],
+      "favorita": true
+    },
+    {
+      "id": "rucula-com-tomate-seco",
+      "nome": "Rúcula com tomate seco",
+      "descricao": "Molho de tomate especial da casa, mussarela, tomate seco, folhas frescas de rúcula e um toque de orégano. Leve, saborosa e perfeita para quem aprecia sabores equilibrados.",
+      "categoria": "pizzas-queridinhas",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 34.9,
+          "codigo": "215"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 56.9,
+          "codigo": "140"
+        }
+      ]
+    },
+    {
+      "id": "picante",
+      "nome": "Picante",
+      "descricao": "Molho de tomate especial da casa, mussarela, tomates frescos e queijo coalho. Finalizada com geleia de pimenta e um toque de orégano. Picante, saborosa e irresistível a cada fatia.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 38.9,
+          "codigo": "226"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 62.9,
+          "codigo": "151"
+        }
+      ]
+    },
+    {
+      "id": "portuguesa",
+      "nome": "Portuguesa",
+      "descricao": "Molho de tomate especial da casa, mussarela, presunto suíno, azeitonas verdes fatiadas, ovos cozidos, cebola branca e um toque de orégano. A clássica pizza portuguesa, cheia de sabor e tradição.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 38.9,
+          "codigo": "210"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 62.9,
+          "codigo": "135"
+        }
+      ]
+    },
+    {
+      "id": "lombinho-com-mango-chutney",
+      "nome": "Lombinho com mango chutney",
+      "descricao": "Molho de tomate especial da casa, mussarela, lombinho canadense e mango chutney, com toque de orégano. Sabor único que mistura delicadamente o doce e o salgado.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 38.9,
+          "codigo": "213"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 62.9,
+          "codigo": "138"
+        }
+      ],
+      "destaque": true
+    },
+    {
+      "id": "frango-com-catupiry",
+      "nome": "Frango com Catupiry",
+      "descricao": "Molho de tomate especial da casa, mussarela, frango desfiado, Catupiry original e milho. Finalizada com um toque de orégano. Cremosa, saborosa e irresistível em cada fatia.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 40.9,
+          "codigo": "218"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 65.9,
+          "codigo": "143"
+        }
+      ],
+      "destaque": true
+    },
+    {
+      "id": "frango-com-catupiry-e-abacaxi",
+      "nome": "Frango com Catupiry e abacaxi",
+      "descricao": "Molho de tomate especial da casa, mussarela, frango desfiado, Catupiry original e cubos de abacaxi. Finalizada com orégano. Uma combinação deliciosa de cremosidade e toque adocicado.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 41.9,
+          "codigo": "219"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 67.9,
+          "codigo": "144"
+        }
+      ]
+    },
+    {
+      "id": "pepperoni",
+      "nome": "Pepperoni",
+      "descricao": "Molho de tomate especial da casa, mussarela, fatias de pepperoni levemente picantes e um toque de orégano. Sabor intenso e irresistível a cada mordida.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 42.9,
+          "codigo": "212"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 68.9,
+          "codigo": "137"
+        }
+      ]
+    },
+    {
+      "id": "vegana-especial",
+      "nome": "Vegana especial",
+      "descricao": "Molho de tomate especial da casa, mussarela vegana, tomate cereja confitado e molho pesto de azeitona preta. Finalizada com manjericão fresco e orégano. Leve, sofisticada e cheia de sabor.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 42.9,
+          "codigo": "216"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 69.9,
+          "codigo": "343"
+        }
+      ],
+      "tags": [
+        "novo"
+      ],
+      "favorita": true
+    },
+    {
+      "id": "lombinho-com-catupiry-e-abacaxi",
+      "nome": "Lombinho com Catupiry e abacaxi",
+      "descricao": "Molho de tomate especial da casa, mussarela, lombinho canadense, Catupiry original e cubos de abacaxi. Finalizada com orégano. Combinação cremosa e levemente adocicada, irresistível a cada fatia.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 43.9,
+          "codigo": "221"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 70.9,
+          "codigo": "146"
+        }
+      ]
+    },
+    {
+      "id": "quatro-queijos",
+      "nome": "Quatro queijos",
+      "descricao": "Molho de tomate especial da casa, mussarela, provolone, parmesão e gorgonzola, com um toque de orégano. Uma mistura perfeita de queijos para os verdadeiros amantes de sabor.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 44.9,
+          "codigo": "214"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 71.9,
+          "codigo": "139"
+        }
+      ]
+    },
+    {
+      "id": "caprese",
+      "nome": "Caprese",
+      "descricao": "Molho de tomate especial da casa, mussarela de búfala, tomate e pesto de azeitona. Finalizada com manjericão fresco e um toque de orégano. Leve, fresca e cheia de sabor.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 44.9,
+          "codigo": "222"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 71.9,
+          "codigo": "145"
+        }
+      ]
+    },
+    {
+      "id": "marguerita-especial",
+      "nome": "Marguerita especial",
+      "descricao": "Molho de tomate especial da casa, mussarela de búfala, tomate cereja e parmesão. Finalizada com manjericão fresco e um toque de orégano. Leve, saborosa e irresistível.",
+      "categoria": "pizzas-forno",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 44.9,
+          "codigo": "228"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 71.9,
+          "codigo": "149"
+        }
+      ]
+    },
+    {
+      "id": "carne-do-sol",
+      "nome": "Carne do sol",
+      "descricao": "Molho de tomate especial da casa, mussarela, carne de sol desfiada, queijo coalho e cebola roxa, finalizada com um toque de orégano. Sabor marcante e tipicamente nordestino, direto do forno à sua mesa.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 45.9,
+          "codigo": "223"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 73.9,
+          "codigo": "148"
+        }
+      ]
+    },
+    {
+      "id": "bacon-picante",
+      "nome": "Bacon picante",
+      "descricao": "Molho de tomate especial da casa, mussarela, bacon crocante e gorgonzola, finalizada com geleia de pimenta e um toque de orégano. Combinação intensa de sabores, com o equilíbrio perfeito entre o salgado e o picante.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 46.9,
+          "codigo": "224"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 79.9,
+          "codigo": "147"
+        }
+      ]
+    },
+    {
+      "id": "calabresa-especial",
+      "nome": "Calabresa especial",
+      "descricao": "Molho de tomate especial da casa, calabresa fatiada, mussarela de búfala, finalizada com cebola crispy e um toque de orégano. Uma versão sofisticada do clássico, com sabor marcante e textura irresistível.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 41.9,
+          "codigo": "217"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 69.9,
+          "codigo": "142"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "camarao",
+      "nome": "Camarão",
+      "descricao": "Molho de tomate especial da casa, mussarela, filé de camarão salteado e alho frito, finalizado com um toque de orégano. Sabor marcante e textura surpreendente a cada fatia.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 49.9,
+          "codigo": "225"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 89.9,
+          "codigo": "150"
+        }
+      ]
+    },
+    {
+      "id": "especial-nalu",
+      "nome": "Especial Nalu",
+      "descricao": "Molho de tomate especial da casa, mussarela de búfala cremosa, camarões, geleia de pimenta, e aquele toque crocante do crispy de presunto Parma, finalizada com orégano. É a combinação perfeita de sabor.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 62.9,
+          "codigo": "184"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 109.9,
+          "codigo": "180"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "pepperoni-especial",
+      "nome": "Pepperoni especial",
+      "descricao": "Molho de tomate especial da casa, mussarela, fatias de pepperoni, Catupiry original e molho pesto, finalizada com um toque de orégano. A combinação irresistível de cremosidade e aquele sabor marcante.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 49.9,
+          "codigo": "287"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 81.9,
+          "codigo": "134"
+        }
+      ],
+      "destaque": true
+    },
+    {
+      "id": "camarao-especial",
+      "nome": "Camarão especial",
+      "descricao": "Molho de tomate especial da casa, mussarela, filé de camarão salteado, Catupiry original e molho pesto, finalizada com um toque de orégano. A combinação perfeita de cremosidade e frescor do mar.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 55.9,
+          "codigo": "230"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 104.9,
+          "codigo": "154"
+        }
+      ]
+    },
+    {
+      "id": "file-com-cheddar",
+      "nome": "Filé com cheddar",
+      "descricao": "Molho de tomate especial da casa, mussarela, filé mignon, cheddar cremoso e cebola caramelizada, finalizada com um toque de orégano. Suculenta, saborosa e irresistível a cada fatia.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 55.9,
+          "codigo": "298"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 91.9,
+          "codigo": "141"
+        }
+      ]
+    },
+    {
+      "id": "parma",
+      "nome": "Parma",
+      "descricao": "Molho de tomate especial da casa, mussarela de búfala, presunto Parma, rúcula fresca e parmesão, finalizada com um toque de orégano. Leve, sofisticada e cheia de sabor.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 60.9,
+          "codigo": "217"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 99.9,
+          "codigo": "152"
+        }
+      ]
+    },
+    {
+      "id": "file-mignon-e-gorgonzola",
+      "nome": "Filé mignon e gorgonzola",
+      "descricao": "Molho de tomate especial da casa, mussarela, filé mignon, gorgonzola e Catupiry original, finalizada com um toque de orégano. Combinação intensa e cremosa que conquista a cada fatia.",
+      "categoria": "pizzas-chef",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 62.9,
+          "codigo": "229"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 104.9,
+          "codigo": "153"
+        }
+      ]
+    },
+    {
+      "id": "suflair",
+      "nome": "Suflair",
+      "descricao": "Ganache de chocolate, Suflair e morango: o trio perfeito pra quem ama se perder em sabor!",
+      "categoria": "pizzas-doces",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 42.9,
+          "codigo": "234"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 69.9,
+          "codigo": "172"
+        }
+      ],
+      "tags": [
+        "novo"
+      ],
+      "imagem": "doces/pizza-chocolate-morango.jpg",
+      "linha": "Especiais do Chef",
+      "favorita": true
+    },
+    {
+      "id": "prestigio",
+      "nome": "Prestígio",
+      "descricao": "Ganache de chocolate, coco ralado e leite condensado. Clássica e irresistível, doce na medida certa.",
+      "categoria": "pizzas-doces",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 42.9,
+          "codigo": "197"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 69.9,
+          "codigo": "178"
+        }
+      ],
+      "tags": [
+        "novo"
+      ],
+      "linha": "Especiais do Chef"
+    },
+    {
+      "id": "chocobrownie",
+      "nome": "Chocobrownie",
+      "descricao": "Chocolate, brownie e castanhas: o equilíbrio perfeito entre cremosidade e crocância.",
+      "categoria": "pizzas-doces",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 36.9,
+          "codigo": "235"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 59.9,
+          "codigo": "173"
+        }
+      ],
+      "linha": "Do Forno ao Coração"
+    },
+    {
+      "id": "2-amores",
+      "nome": "2 Amores",
+      "descricao": "A doçura equilibrada do chocolate ao leite se encontra com o toque suave do chocolate branco, um clássico que nunca sai de moda.",
+      "categoria": "pizzas-doces",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 36.9,
+          "codigo": "236"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 59.9,
+          "codigo": "176"
+        }
+      ],
+      "linha": "Do Forno ao Coração"
+    },
+    {
+      "id": "banana-com-canela",
+      "nome": "Banana com canela",
+      "descricao": "A combinação perfeita entre o doce da banana caramelizada e o toque envolvente da canela. Finalizada com leite condensado e cobertura de caramelo, uma sobremesa em forma de pizza.",
+      "categoria": "pizzas-doces",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 31.9,
+          "codigo": "232"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 49.9,
+          "codigo": "171"
+        }
+      ],
+      "linha": "Queridinhas da Nalu"
+    },
+    {
+      "id": "chocolate",
+      "nome": "Chocolate",
+      "descricao": "O sabor do amor em cada pedaço: chocolate ao leite, mussarela cremosa e o toque apaixonante do Serenata de Amor.",
+      "categoria": "pizzas-doces",
+      "precos": [
+        {
+          "tamanho": "Brotinho",
+          "valor": 31.9,
+          "codigo": "231"
+        },
+        {
+          "tamanho": "Grande",
+          "valor": 49.9,
+          "codigo": "170"
+        }
+      ],
+      "linha": "Queridinhas da Nalu"
+    },
+    {
+      "id": "combo-mini-pizzas-com-04-queridinhas-da-nalu",
+      "nome": "Combo mini pizzas com 04 Queridinhas da Nalu",
+      "categoria": "mini-pizzas",
+      "precos": [
+        {
+          "valor": 46.9,
+          "codigo": "400"
+        }
+      ]
+    },
+    {
+      "id": "combo-mini-pizzas-com-08-queridinhas-da-nalu",
+      "nome": "Combo mini pizzas com 08 Queridinhas da Nalu",
+      "categoria": "mini-pizzas",
+      "precos": [
+        {
+          "valor": 84.9,
+          "codigo": "401"
+        }
+      ]
+    },
+    {
+      "id": "combo-mini-pizzas-com-04-do-forno-ao-coracao",
+      "nome": "Combo mini pizzas com 04 Do Forno ao Coração",
+      "categoria": "mini-pizzas",
+      "precos": [
+        {
+          "valor": 49.9,
+          "codigo": "402"
+        }
+      ]
+    },
+    {
+      "id": "combo-mini-pizzas-com-08-do-forno-ao-coracao",
+      "nome": "Combo mini pizzas com 08 Do Forno ao Coração",
+      "categoria": "mini-pizzas",
+      "precos": [
+        {
+          "valor": 87.9,
+          "codigo": "406"
+        }
+      ]
+    },
+    {
+      "id": "combo-mini-pizzas-com-04-especiais-do-chef",
+      "nome": "Combo mini pizzas com 04 Especiais do Chef",
+      "categoria": "mini-pizzas",
+      "precos": [
+        {
+          "valor": 52.9,
+          "codigo": "408"
+        }
+      ]
+    },
+    {
+      "id": "combo-mini-pizzas-com-08-especiais-do-chef",
+      "nome": "Combo mini pizzas com 08 Especiais do Chef",
+      "categoria": "mini-pizzas",
+      "precos": [
+        {
+          "valor": 90.9,
+          "codigo": "409"
+        }
+      ]
+    },
+    {
+      "id": "petit-gateau",
+      "nome": "Petit gateau",
+      "descricao": "Petit gateau de chocolate, servido com sorvete de creme e ganache de chocolate. Uma sobremesa intensa, equilibrada e cheia de prazer.",
+      "categoria": "sobremesas",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "192"
+        }
+      ]
+    },
+    {
+      "id": "bolas-de-sorvete",
+      "nome": "Bolas de sorvete",
+      "descricao": "Duas bolas de puro sabor: chocolate ou creme. Escolha o seu favorito!",
+      "categoria": "sobremesas",
+      "precos": [
+        {
+          "valor": 14.9,
+          "codigo": "191"
+        }
+      ]
+    },
+    {
+      "id": "brownie-com-sorvete",
+      "nome": "Brownie com sorvete",
+      "descricao": "Brownie especial da casa com uma bola de sorvete, ganache de chocolate e castanhas granuladas. Quente, cremoso e crocante na medida certa.",
+      "categoria": "sobremesas",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "190"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "agua-mineral-500ml",
+      "nome": "Água mineral 500ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 7.9,
+          "codigo": "1"
+        }
+      ]
+    },
+    {
+      "id": "agua-mineral-com-gas-500ml",
+      "nome": "Água mineral com gás 500ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "2"
+        }
+      ]
+    },
+    {
+      "id": "coca-cola-350ml",
+      "nome": "Coca-Cola 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "3"
+        }
+      ]
+    },
+    {
+      "id": "coca-cola-zero-350ml",
+      "nome": "Coca-Cola Zero 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "4"
+        }
+      ]
+    },
+    {
+      "id": "guarana-350ml",
+      "nome": "Guaraná 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "7"
+        }
+      ]
+    },
+    {
+      "id": "guarana-zero-350ml",
+      "nome": "Guaraná Zero 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "8"
+        }
+      ]
+    },
+    {
+      "id": "sprite-fresh-510ml",
+      "nome": "Sprite Fresh 510ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 9.9,
+          "codigo": "22"
+        }
+      ]
+    },
+    {
+      "id": "fanta-uva-350ml",
+      "nome": "Fanta Uva 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "13"
+        }
+      ]
+    },
+    {
+      "id": "fanta-laranja-350ml",
+      "nome": "Fanta Laranja 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "10"
+        }
+      ]
+    },
+    {
+      "id": "sprite-350ml",
+      "nome": "Sprite 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "15"
+        }
+      ]
+    },
+    {
+      "id": "sao-geraldo-350ml",
+      "nome": "São Geraldo 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "27"
+        }
+      ]
+    },
+    {
+      "id": "sao-geraldo-zero-350ml",
+      "nome": "São Geraldo Zero 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "28"
+        }
+      ]
+    },
+    {
+      "id": "schweppes-citrus-350ml",
+      "nome": "Schweppes Citrus 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "20"
+        }
+      ]
+    },
+    {
+      "id": "schweppes-tonica-350ml",
+      "nome": "Schweppes Tônica 350ml",
+      "categoria": "bebidas",
+      "precos": [
+        {
+          "valor": 8.9,
+          "codigo": "21"
+        }
+      ]
+    },
+    {
+      "id": "suco-abacaxi-com-hortela",
+      "nome": "Suco de abacaxi com hortelã",
+      "categoria": "sucos",
+      "precos": [
+        {
+          "tamanho": "Copo 350ml",
+          "valor": 11.9,
+          "codigo": "36"
+        },
+        {
+          "tamanho": "Jarra 750ml",
+          "valor": 18.9,
+          "codigo": "37"
+        }
+      ]
+    },
+    {
+      "id": "suco-caja",
+      "nome": "Suco de cajá",
+      "categoria": "sucos",
+      "precos": [
+        {
+          "tamanho": "Copo 350ml",
+          "valor": 11.9,
+          "codigo": "40"
+        },
+        {
+          "tamanho": "Jarra 750ml",
+          "valor": 18.9,
+          "codigo": "41"
+        }
+      ]
+    },
+    {
+      "id": "suco-limao",
+      "nome": "Suco de limão",
+      "categoria": "sucos",
+      "precos": [
+        {
+          "tamanho": "Copo 350ml",
+          "valor": 11.9,
+          "codigo": "34"
+        },
+        {
+          "tamanho": "Jarra 750ml",
+          "valor": 18.9,
+          "codigo": "35"
+        }
+      ]
+    },
+    {
+      "id": "suco-graviola",
+      "nome": "Suco de graviola",
+      "categoria": "sucos",
+      "precos": [
+        {
+          "tamanho": "Copo 350ml",
+          "valor": 11.9,
+          "codigo": "48"
+        },
+        {
+          "tamanho": "Jarra 750ml",
+          "valor": 18.9,
+          "codigo": "49"
+        }
+      ]
+    },
+    {
+      "id": "suco-maracuja",
+      "nome": "Suco de maracujá",
+      "categoria": "sucos",
+      "precos": [
+        {
+          "tamanho": "Copo 350ml",
+          "valor": 11.9,
+          "codigo": "54"
+        },
+        {
+          "tamanho": "Jarra 750ml",
+          "valor": 18.9,
+          "codigo": "57"
+        }
+      ]
+    },
+    {
+      "id": "suco-tangerina",
+      "nome": "Suco de tangerina",
+      "categoria": "sucos",
+      "precos": [
+        {
+          "tamanho": "Copo 350ml",
+          "valor": 11.9,
+          "codigo": "30"
+        },
+        {
+          "tamanho": "Jarra 750ml",
+          "valor": 18.9,
+          "codigo": "31"
+        }
+      ]
+    },
+    {
+      "id": "suco-laranja",
+      "nome": "Suco de laranja",
+      "categoria": "sucos",
+      "precos": [
+        {
+          "tamanho": "Copo 350ml",
+          "valor": 11.9,
+          "codigo": "32"
+        },
+        {
+          "tamanho": "Jarra 750ml",
+          "valor": 18.9,
+          "codigo": "33"
+        }
+      ]
+    },
+    {
+      "id": "heineken-330ml",
+      "nome": "Heineken 330ml",
+      "categoria": "cervejas",
+      "precos": [
+        {
+          "valor": 13.9,
+          "codigo": "50"
+        }
+      ]
+    },
+    {
+      "id": "heineken-600ml",
+      "nome": "Heineken 600ml",
+      "categoria": "cervejas",
+      "precos": [
+        {
+          "valor": 18.9,
+          "codigo": "51"
+        }
+      ]
+    },
+    {
+      "id": "heineken-zero-alcool-330ml",
+      "nome": "Heineken Zero Álcool 330ml",
+      "categoria": "cervejas",
+      "precos": [
+        {
+          "valor": 13.9,
+          "codigo": "45"
+        }
+      ]
+    },
+    {
+      "id": "stella-artois-330ml",
+      "nome": "Stella Artois 330ml",
+      "categoria": "cervejas",
+      "precos": [
+        {
+          "valor": 11.9,
+          "codigo": "46"
+        }
+      ]
+    },
+    {
+      "id": "stella-artois-600ml",
+      "nome": "Stella Artois 600ml",
+      "categoria": "cervejas",
+      "precos": [
+        {
+          "valor": 16.9,
+          "codigo": "53"
+        }
+      ]
+    },
+    {
+      "id": "original-600ml",
+      "nome": "Original 600ml",
+      "categoria": "cervejas",
+      "precos": [
+        {
+          "valor": 16.9,
+          "codigo": "55"
+        }
+      ]
+    },
+    {
+      "id": "spaten-600ml",
+      "nome": "Spaten 600ml",
+      "categoria": "cervejas",
+      "precos": [
+        {
+          "valor": 16.9,
+          "codigo": "56"
+        }
+      ]
+    },
+    {
+      "id": "caipirinha-de-limao",
+      "nome": "Caipirinha de limão",
+      "categoria": "caipirinhas",
+      "precos": [
+        {
+          "valor": 16.9,
+          "codigo": "100"
+        }
+      ]
+    },
+    {
+      "id": "caipirinha-de-kiwi",
+      "nome": "Caipirinha de kiwi",
+      "categoria": "caipirinhas",
+      "precos": [
+        {
+          "valor": 18.9,
+          "codigo": "104"
+        }
+      ]
+    },
+    {
+      "id": "caipirinha-de-morango",
+      "nome": "Caipirinha de morango",
+      "categoria": "caipirinhas",
+      "precos": [
+        {
+          "valor": 18.9,
+          "codigo": "105"
+        }
+      ]
+    },
+    {
+      "id": "caipiroska-de-limao",
+      "nome": "Caipiroska de limão",
+      "categoria": "caipirinhas",
+      "precos": [
+        {
+          "valor": 21.9,
+          "codigo": "102"
+        }
+      ]
+    },
+    {
+      "id": "caipiroska-de-kiwi",
+      "nome": "Caipiroska de kiwi",
+      "categoria": "caipirinhas",
+      "precos": [
+        {
+          "valor": 23.9,
+          "codigo": "107"
+        }
+      ]
+    },
+    {
+      "id": "caipiroska-de-morango",
+      "nome": "Caipiroska de morango",
+      "categoria": "caipirinhas",
+      "precos": [
+        {
+          "valor": 23.9,
+          "codigo": "101"
+        }
+      ]
+    },
+    {
+      "id": "gin-tonico-limao",
+      "nome": "Gin tônico limão",
+      "categoria": "drinks",
+      "precos": [
+        {
+          "valor": 24.9,
+          "codigo": "700"
+        }
+      ]
+    },
+    {
+      "id": "gin-tonico-morango",
+      "nome": "Gin tônico morango",
+      "categoria": "drinks",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "701"
+        }
+      ]
+    },
+    {
+      "id": "aperol-spritz",
+      "nome": "Aperol Spritz",
+      "categoria": "drinks",
+      "precos": [
+        {
+          "valor": 28.9,
+          "codigo": "702"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "negroni",
+      "nome": "Negroni",
+      "categoria": "drinks",
+      "precos": [
+        {
+          "valor": 28.9,
+          "codigo": "703"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "mojito",
+      "nome": "Mojito",
+      "categoria": "drinks",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "704"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "soda-italiana",
+      "nome": "Soda italiana",
+      "categoria": "drinks",
+      "precos": [
+        {
+          "valor": 19.9,
+          "codigo": "705"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "moscow-mule",
+      "nome": "Moscow Mule",
+      "categoria": "drinks",
+      "precos": [
+        {
+          "valor": 26.9,
+          "codigo": "103"
+        }
+      ],
+      "tags": [
+        "novo"
+      ]
+    },
+    {
+      "id": "dose-de-smirnoff",
+      "nome": "Dose de Smirnoff",
+      "categoria": "destilados",
+      "precos": [
+        {
+          "valor": 14.9,
+          "codigo": "66"
+        }
+      ]
+    },
+    {
+      "id": "dose-de-ypioca",
+      "nome": "Dose de Ypióca",
+      "categoria": "destilados",
+      "precos": [
+        {
+          "valor": 7.9,
+          "codigo": "68"
+        }
+      ]
+    },
+    {
+      "id": "dose-de-black-e-white",
+      "nome": "Dose de Black & White",
+      "categoria": "destilados",
+      "precos": [
+        {
+          "valor": 14.9,
+          "codigo": "74"
+        }
+      ]
+    },
+    {
+      "id": "dose-de-j-walker-red-label",
+      "nome": "Dose de J. Walker Red Label",
+      "categoria": "destilados",
+      "precos": [
+        {
+          "valor": 16.9,
+          "codigo": "75"
+        }
+      ]
+    },
+    {
+      "id": "cointreau",
+      "nome": "Cointreau",
+      "categoria": "destilados",
+      "precos": [
+        {
+          "valor": 22.9,
+          "codigo": "709"
+        }
+      ]
+    }
+  ]
+}

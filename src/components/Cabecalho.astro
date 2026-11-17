@@ -1,0 +1,107 @@
+---
+import Logo from './Logo.astro';
+import Icone from './Icone.astro';
+const links = [
+  { href: '/cardapio', txt: 'Cardápio' },
+  { href: '/unidades', txt: 'As 4 casas' },
+  { href: '/nalu-mania', txt: 'Nalu Mania' },
+  { href: '/aniversarios', txt: 'Aniversários' },
+];
+const atual = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="topo on-dark" data-topo>
+  <div class="barra wrap">
+    <a href="/" class="marca" aria-label="Nalu Pizzas"><Logo altura={38} /></a>
+    <nav class="nav" aria-label="Principal">
+      {links.map((l) => <a href={l.href} class="link-sublinhado" aria-current={atual.startsWith(l.href) ? 'page' : undefined}>{l.txt}</a>)}
+    </nav>
+    <button type="button" class="unidade" data-abre-seletor aria-haspopup="dialog">
+      <Icone nome="pin" /><span class="u-txt"><span class="u-pre">Nalu</span> <span data-u-nome="Escolher unidade">Escolher unidade</span></span><Icone nome="baixo" class="v" />
+    </button>
+    <a href="#escolher-unidade" data-u-pedido class="btn btn--pequeno pedir"><Icone nome="sacola" />Pedir agora</a>
+    <button type="button" class="abrir-menu" data-abrir-menu aria-label="Abrir menu" aria-controls="menu-cheio" aria-expanded="false"><Icone nome="menu" /></button>
+  </div>
+</header>
+
+<dialog id="menu-cheio" class="menu-cheio on-dark" aria-label="Menu">
+  <div class="menu-topo wrap">
+    <Logo altura={38} />
+    <button type="button" class="abrir-menu" data-fechar-menu aria-label="Fechar menu"><Icone nome="fechar" /></button>
+  </div>
+  <nav class="wrap menu-links" aria-label="Menu">
+    <a href="/">Início</a>
+    {links.map((l) => <a href={l.href}>{l.txt}</a>)}
+    <a href="/unidades#contato">Contato</a>
+  </nav>
+  <div class="wrap menu-pe">
+    <a href="#escolher-unidade" data-u-pedido class="btn">Pedir agora</a>
+    <p>Entrega grátis e cashback no pedido pelo site.</p>
+  </div>
+</dialog>
+
+<style>
+  .topo {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--petroleo); color: var(--farinha-2);
+    transition: transform 0.3s var(--ease);
+    padding-top: env(safe-area-inset-top);
+  }
+  .topo.escondido { transform: translateY(-100%); }
+  .barra { display: flex; align-items: center; gap: 10px; height: var(--header-h); }
+  .marca { display: flex; align-items: center; text-decoration: none; margin-right: auto; min-height: 48px; }
+  .nav { display: none; }
+  .unidade {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px 0 10px;
+    border: 0; border-radius: var(--r-pill); cursor: pointer;
+    background: color-mix(in srgb, var(--farinha) 13%, transparent); color: var(--farinha-2);
+    font-weight: 600; font-size: 0.9375rem; max-width: 52vw;
+  }
+  .unidade :global(svg) { width: 18px; flex: none; color: var(--ambar); }
+  .unidade :global(.v) { width: 16px; color: inherit; opacity: 0.8; }
+  .u-txt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .u-pre { display: none; }
+  .pedir { display: none; }
+  .abrir-menu { width: 48px; height: 48px; display: grid; place-items: center; border: 0; background: transparent; color: inherit; cursor: pointer; margin-right: -10px; }
+  .abrir-menu :global(svg) { width: 26px; }
+
+  @media (min-width: 1024px) {
+    :root { --header-h: 72px; }
+    .marca { margin-right: 8px; }
+    .nav { display: flex; gap: 26px; margin-right: auto; margin-left: 24px; font-weight: 600; }
+    .nav a { text-decoration: none; padding-block: 12px; }
+    .nav a[aria-current='page'] { background-size: 100% 2px; }
+    .u-pre { display: inline; }
+    .pedir { display: inline-flex; }
+    .abrir-menu { display: none; }
+    .unidade { max-width: none; }
+  }
+
+  .menu-cheio { border: 0; padding: 0; margin: 0; width: 100%; height: 100%; max-width: none; max-height: none; background: var(--petroleo); color: var(--farinha-2); }
+  .menu-cheio[open] { display: flex; flex-direction: column; animation: aparece 0.25s var(--ease); }
+  @keyframes aparece { from { opacity: 0; } }
+  .menu-topo { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); margin-top: env(safe-area-inset-top); }
+  .menu-links { display: grid; gap: 2px; margin-top: 4vh; }
+  .menu-links a { font-family: var(--f-display); font-weight: 600; font-size: clamp(2rem, 9vw, 3rem); text-decoration: none; padding: 6px 0; line-height: 1.1; }
+  .menu-pe { margin-top: auto; padding-bottom: calc(28px + env(safe-area-inset-bottom)); display: grid; gap: 10px; }
+  .menu-pe .btn { width: 100%; min-height: 56px; }
+  .menu-pe p { font-size: var(--t-xs); opacity: 0.8; text-align: center; }
+</style>
+
+<script>
+  const topo = document.querySelector<HTMLElement>('[data-topo]')!;
+  let ultimo = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    const esconder = y > ultimo && y > 160;
+    topo.classList.toggle('escondido', esconder);
+    document.documentElement.classList.toggle('topo-off', esconder);
+    ultimo = y;
+  }, { passive: true });
+
+  const menu = document.getElementById('menu-cheio') as HTMLDialogElement;
+  const abrir = document.querySelector<HTMLButtonElement>('[data-abrir-menu]')!;
+  abrir.addEventListener('click', () => { menu.showModal(); abrir.setAttribute('aria-expanded', 'true'); });
+  menu.querySelector('[data-fechar-menu]')!.addEventListener('click', () => menu.close());
+  menu.addEventListener('close', () => abrir.setAttribute('aria-expanded', 'false'));
+  menu.querySelectorAll('a[data-u-pedido]').forEach((a) => a.addEventListener('click', () => menu.close()));
+</script>

@@ -1,0 +1,61 @@
+---
+// Foto real quando o arquivo existe em src/assets/fotos/<src>.
+// Senão, um marcador na paleta com o nome do arquivo e o que a foto precisa mostrar.
+import { Picture } from 'astro:assets';
+
+interface Props {
+  src: string; // ex.: 'pizzas/hero-fatia.jpg'
+  alt: string;
+  pede: string; // descrição da foto esperada (vai para FOTOS-NECESSARIAS.md)
+  proporcao?: string; // '4/5', '16/9'…
+  sizes?: string;
+  larguras?: number[];
+  prioridade?: boolean;
+  tom?: 'petroleo' | 'ambar' | 'massa' | 'noite' | 'tomate' | 'chocolate';
+  class?: string;
+}
+const { src, alt, pede, proporcao = '4/5', sizes = '100vw', larguras = [360, 540, 720, 960, 1280, 1600], prioridade = false, tom = 'massa', class: cls } = Astro.props;
+const fotos = import.meta.glob<{ default: ImageMetadata }>('/src/assets/fotos/**/*.{jpg,jpeg,png,webp,avif}', { eager: true });
+const img = fotos[`/src/assets/fotos/${src}`]?.default;
+const [w, h] = proporcao.split('/').map(Number);
+---
+{img ? (
+  <Picture
+    src={img}
+    alt={alt}
+    formats={['avif', 'webp']}
+    widths={larguras.filter((l) => l <= img.width)}
+    sizes={sizes}
+    loading={prioridade ? 'eager' : 'lazy'}
+    fetchpriority={prioridade ? 'high' : 'auto'}
+    decoding="async"
+    class:list={['foto', cls]}
+    style={`aspect-ratio:${w}/${h}`}
+  />
+) : (
+  <div class:list={['foto foto--falta', `tom-${tom}`, cls]} style={`aspect-ratio:${w}/${h}`} role="img" aria-label={alt}>
+    <span class="arq">{src}</span>
+    <span class="pede">{pede}</span>
+  </div>
+)}
+<style>
+  .foto { display: block; width: 100%; height: auto; object-fit: cover; }
+  :global(picture) { display: contents; }
+  .foto--falta {
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 0.3rem;
+    padding: clamp(0.8rem, 3%, 1.4rem);
+    background:
+      radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--c2) 55%, transparent), transparent 60%),
+      var(--c1);
+    color: var(--cf);
+    overflow: hidden;
+  }
+  .arq { font-weight: 700; font-size: 0.8125rem; word-break: break-all; opacity: 0.95; }
+  .pede { font-size: 0.8125rem; line-height: 1.35; opacity: 0.8; max-width: 34ch; }
+  .tom-petroleo { --c1: var(--petroleo); --c2: var(--petroleo-2); --cf: var(--farinha); }
+  .tom-noite { --c1: var(--petroleo-noite); --c2: var(--petroleo); --cf: var(--farinha); }
+  .tom-ambar { --c1: var(--ambar); --c2: var(--ambar-claro); --cf: var(--petroleo-noite); }
+  .tom-massa { --c1: var(--massa); --c2: var(--farinha-2); --cf: var(--chocolate); }
+  .tom-tomate { --c1: var(--tomate); --c2: #e2664a; --cf: var(--farinha-2); }
+  .tom-chocolate { --c1: var(--chocolate); --c2: #5b3727; --cf: var(--massa); }
+</style>

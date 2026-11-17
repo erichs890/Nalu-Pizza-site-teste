@@ -1,0 +1,428 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import Selo from '../components/Selo.astro';
+import Derretido from '../components/Derretido.astro';
+import Padrao from '../components/Padrao.astro';
+import Icone from '../components/Icone.astro';
+import Preco from '../components/Preco.astro';
+import CardCasa from '../components/CardCasa.astro';
+import MapaCasas from '../components/MapaCasas.astro';
+import FormAniversario from '../components/FormAniversario.astro';
+import { site } from '../config/site';
+import { unidades } from '../config/unidades';
+import { favoritas, fotoDoItem } from '../data/cardapio';
+import { jsonldOrg, jsonldRestaurante } from '../lib/seo';
+import { getImage } from 'astro:assets';
+import heroSrc from '../assets/fotos/pizzas/especial-nalu.jpg';
+
+// Hero: uma imagem WebP só, gerada aqui para o <link rel=preload> e o <img> usarem as MESMAS URLs
+const heroSizes = '(min-width: 1024px) 640px, (orientation: landscape) 300px, min(86vw, 36svh, 520px)';
+const hero = await getImage({ src: heroSrc, format: 'webp', widths: [320, 480, 640, 960, 1280], sizes: heroSizes });
+
+const salgadas = favoritas(false).slice(0, 7);
+const doce = favoritas(true)[0];
+const mosaico = [
+  ['instagram/01.jpg', 'pizza inteira vista de cima sobre sousplat verde', 'petroleo'],
+  ['instagram/02.jpg', 'família à mesa rindo, luz quente', 'massa'],
+  ['instagram/03.jpg', 'taça de vinho tinto em close com pizza', 'chocolate'],
+  ['instagram/04.jpg', 'letreiro neon verde da Nalu no salão', 'noite'],
+  ['instagram/05.jpg', 'fatia de chocolate com morango derretendo', 'ambar'],
+] as const;
+---
+<Base
+  titulo="Nalu Pizzas & Massas · Pizzaria artesanal em Fortaleza e Eusébio"
+  jsonld={[jsonldOrg(), ...unidades.map(jsonldRestaurante)]}
+>
+  <link slot="head" rel="preload" as="image" type="image/webp" imagesrcset={hero.srcSet.attribute} imagesizes={heroSizes} fetchpriority="high" />
+  <!-- 1. HERO -->
+  <section class="hero on-dark" data-hero aria-labelledby="hero-t">
+    <Padrao opacidade={0.1} />
+    <div class="hero-in wrap">
+      <div class="hero-foto">
+        <img
+          class="foto hero-img"
+          src={hero.src}
+          srcset={hero.srcSet.attribute}
+          sizes={heroSizes}
+          width="1280"
+          height="1280"
+          alt="Pizza Especial Nalu com camarões, mussarela de búfala e crispy de presunto Parma"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <Selo volta="massa leve e crocante · massa leve e crocante · " miolo="17" sub="anos" tamanho="clamp(92px, 22vw, 150px)" class="hero-selo" girar />
+      </div>
+      <div class="hero-txt">
+        <h1 id="hero-t" class="chamada">Massa leve.<br />Borda crocante.</h1>
+        <p class="lede">Família inteira na mesa há {site.anosDeTradicao} anos, em quatro casas. <span class="confirmar">[CONFIRMAR: título]</span></p>
+        <div class="hero-ctas">
+          <a href="#escolher-unidade" data-u-pedido class="btn hero-pedir">
+            <Icone nome="sacola" />
+            <span class="pedir-txt">Pedir agora<small>Entrega grátis + cashback</small></span>
+          </a>
+          <a href="/cardapio" class="btn btn--contorno">Ver cardápio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. NALU MANIA -->
+  <section class="mania" aria-labelledby="mania-t">
+    <div class="mania-in wrap">
+      <p class="mania-hoje" data-mania-hoje><span data-mania-txt>Segunda a quinta é dia de Nalu Mania</span></p>
+      <h2 id="mania-t" class="chamada">Nalu Mania</h2>
+      <p class="mania-oferta">Segunda a quinta, pizzas artesanais com <b>até 25% de desconto</b> e <b>entrega grátis</b>.</p>
+      <a href="/nalu-mania" class="btn btn--escuro">Como funciona</a>
+    </div>
+  </section>
+  <Derretido cor="var(--ambar)" variante={1} />
+
+  <!-- 3. FAVORITAS -->
+  <section class="favoritas" aria-labelledby="fav-t">
+    <div class="wrap fav-cab">
+      <h2 id="fav-t" class="chamada">As favoritas<br />da casa</h2>
+      <p>Pizza de borda fina, massa de porção individual e pastel que some da mesa.</p>
+      <a href="/cardapio" class="link-sublinhado ver-tudo">Cardápio completo</a>
+    </div>
+    <div class="fav-trilho" tabindex="0" aria-label="Pizzas favoritas, role para o lado">
+      <ul class="fav-lista wrap">
+        {salgadas.map((p, n) => (
+          <li class:list={['fav', { grande: n === 0 }]}>
+            <a href={`/cardapio#${p.categoria}`} class="fav-link">
+              <div class="fav-foto">
+                <Foto src={fotoDoItem(p)} alt={p.nome} pede="pizza inteira de cima, fundo escuro esverdeado" proporcao="4/5" sizes="(min-width: 1024px) 30vw, 72vw" tom={n % 2 ? 'massa' : 'petroleo'} />
+              </div>
+              <h3 class="sabor">{p.nome}</h3>
+              <p class="fav-preco">{p.precos.slice(-1).map((pr) => <Preco valor={pr.valor} tamanho={pr.tamanho} />)}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. A DOCE ESTRELA -->
+  {doce && (
+    <section class="doce on-dark" aria-labelledby="doce-t">
+      <div class="doce-in wrap">
+        <div class="doce-foto">
+          <Foto src={fotoDoItem(doce)} alt="Fatia da pizza Suflair com ganache de chocolate e morango" pede="close da pizza Suflair (chocolate, Suflair e morango) derretendo, fundo âmbar" proporcao="1/1" sizes="(min-width: 1024px) 46vw, 100vw" tom="ambar" />
+        </div>
+        <div class="doce-txt">
+          <p class="doce-pre">Pra fechar a noite</p>
+          <h2 id="doce-t" class="sabor">{doce.nome}</h2>
+          <p>{doce.descricao}</p>
+          <a href="/cardapio#pizzas-doces" class="btn">Ver as doces</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 5. AS 4 CASAS -->
+  <section class="casas on-dark" aria-labelledby="casas-t" data-mapa-ativo="">
+    <Padrao opacidade={0.06} />
+    <div class="wrap casas-in">
+      <div class="casas-cab">
+        <p class="neon" aria-hidden="true">nalu</p>
+        <h2 id="casas-t" class="chamada">A família cresceu.<br />Conheça as 4 casas.</h2>
+      </div>
+      <div class="casas-mapa" aria-hidden="true"><MapaCasas /></div>
+      <ul class="casas-lista">
+        {unidades.map((u) => <li data-casa-item={u.slug}><CardCasa u={u} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6. KIDS & FAMÍLIA -->
+  <section class="kids" aria-labelledby="kids-t">
+    <div class="wrap kids-in">
+      <div class="kids-foto">
+        <Foto src="familia/mesa-familia.jpg" alt="Cliente sorrindo à mesa da Nalu, com pizza e entradas" pede="família real à mesa com crianças, sorrisos, luz quente do salão" proporcao="5/4" sizes="(min-width: 1024px) 55vw, 100vw" tom="massa" />
+      </div>
+      <div class="kids-txt">
+        <h2 id="kids-t" class="chamada">Mesa pra família toda</h2>
+        <p class="kids-lede">Os pequenos têm espaço só deles. Os grandes comem em paz.</p>
+        <p>O Nalu Kids é um espaço seguro e acolhedor para as crianças brincarem enquanto a pizza chega. <span class="confirmar">[CONFIRMAR: em quais casas]</span></p>
+        <a href="#aniversario" class="btn btn--escuro">Reservar aniversário</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ANIVERSÁRIOS -->
+  <Derretido cor="var(--farinha)" variante={3} />
+  <section class="aniv" id="aniversario" aria-labelledby="aniv-t">
+    <div class="wrap aniv-in">
+      <div class="aniv-txt">
+        <h2 id="aniv-t" class="chamada">Celebre do seu jeito na Nalu</h2>
+        <div class="oferta">
+          <Selo volta="aniversário na nalu · aniversário na nalu · " miolo={String(site.aniversario.convidadosMinimos)} sub="convidados" cor="petroleo" tamanho="118px" />
+          <p>Reúna {site.aniversario.convidadosMinimos} convidados e ganhe a nossa famosa <b class="sabor">{site.aniversario.brinde}</b>. <span class="confirmar">[CONFIRMAR: regras atuais]</span></p>
+        </div>
+      </div>
+      <div class="aniv-form">
+        <FormAniversario id="aniv-home" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. NALU HARMONIZA -->
+  <section class="vinho on-dark" aria-labelledby="vinho-t">
+    <div class="wrap vinho-in">
+      <div class="vinho-foto">
+        <Foto src="vinhos/taca-pizza.jpg" alt="Taça de vinho tinto ao lado de um prato de massa" pede="taça de tinto em close, pizza desfocada atrás, luz baixa" proporcao="3/4" sizes="(min-width: 1024px) 30vw, 60vw" tom="chocolate" />
+      </div>
+      <div class="vinho-txt">
+        <h2 id="vinho-t" class="chamada">Nalu Harmoniza</h2>
+        <p class="vinho-frase sabor">Uma taça certa muda a pizza inteira.</p>
+        <p>Carta de vinhos selecionados para acompanhar cada sabor. <span class="confirmar">[CONFIRMAR: a carta de vinhos não está no cardápio 2026]</span></p>
+        <a href="/cardapio#drinks" class="btn btn--contorno">Ver drinks</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. GENTE QUE FAZ -->
+  <section class="equipe" aria-labelledby="equipe-t">
+    <div class="equipe-foto">
+      <Foto src="equipe/pizzaiolos.jpg" alt="Três chefs da Nalu de dólmã, sorrindo" pede="equipe de pizzaiolos e chefs de dólmã e touca, perto do forno, foto horizontal larga" proporcao="21/9" sizes="100vw" larguras={[640, 960, 1440, 1920, 2560]} tom="petroleo" />
+    </div>
+    <div class="wrap">
+      <div class="equipe-cartao">
+        <h2 id="equipe-t" class="chamada">Gente que faz</h2>
+        <p>Pizzaiolos e chefs que abrem a massa, montam e assam cada pizza que sai das quatro casas. <span class="confirmar">[CONFIRMAR: texto sobre a equipe]</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. #VOCENANALU -->
+  <section class="insta" aria-labelledby="insta-t">
+    <div class="wrap insta-cab">
+      <h2 id="insta-t" class="chamada">{site.hashtag}</h2>
+      <a class="btn btn--escuro" href={site.instagram} target="_blank" rel="noopener"><Icone nome="insta" />Seguir {site.instagramHandle}</a>
+    </div>
+    <ul class="wrap mosaico">
+      {mosaico.map(([src, pede, tom]) => (
+        <li><a href={site.instagram} target="_blank" rel="noopener" aria-label="Ver no Instagram">
+          <Foto src={src} alt="" pede={pede} proporcao="1/1" sizes="(min-width: 1024px) 22vw, 46vw" larguras={[240, 400, 640]} tom={tom} />
+        </a></li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  /* ---------- HERO ---------- */
+  .hero { position: relative; background: var(--petroleo); color: var(--farinha-2); overflow: hidden; }
+  .hero-in { position: relative; z-index: 1; display: grid; gap: 18px; padding-block: 14px 28px; min-height: calc(100svh - var(--header-h)); align-content: start; }
+  .hero-foto { position: relative; justify-self: center; width: min(86%, 36svh, 520px); }
+  .hero-img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+  .hero-foto :global(.foto) { border-radius: 48% 52% 46% 54% / 55% 48% 52% 45%; }
+  .hero-foto :global(.foto--falta) { padding: 22% 18%; justify-content: center; }
+  .hero :global(.hero-selo) { position: absolute; right: -6px; bottom: -10px; }
+  .hero-txt { display: grid; gap: 12px; }
+  .hero h1 { font-size: clamp(2.35rem, 1.2rem + 6.2vw, 5.6rem); color: var(--ambar); }
+  .lede { font-size: var(--t-m); max-width: 36ch; opacity: 0.92; }
+  .hero-ctas { display: grid; grid-template-columns: 1.35fr 1fr; gap: 10px; margin-top: 6px; }
+  .hero-pedir { min-height: 60px; justify-content: flex-start; padding-left: 1.1em; }
+  .pedir-txt { display: grid; text-align: left; line-height: 1.1; }
+  .pedir-txt small { font-size: 0.75rem; }
+  .hero-ctas .btn--contorno { min-height: 60px; padding-inline: 0.8em; white-space: nowrap; }
+
+  @media (min-width: 600px) and (max-width: 1023px) { .hero-in { align-content: center; } }
+  /* celular deitado: foto ao lado do texto para o CTA caber na tela */
+  @media (orientation: landscape) and (max-height: 520px) and (max-width: 1023px) {
+    .hero-in { grid-template-columns: 0.7fr 1fr; align-items: center; min-height: calc(100svh - var(--header-h)); padding-block: 10px 16px; gap: 24px; }
+    .hero-foto { width: min(100%, 70svh); }
+    .hero h1 { font-size: clamp(2rem, 7svh + 1rem, 3rem); }
+    .hero :global(.hero-selo) { width: 84px; }
+    .lede { font-size: 1rem; }
+  }
+  @media (min-width: 1024px) {
+    .hero-in { grid-template-columns: 1.05fr 1fr; align-items: center; min-height: min(calc(100svh - var(--header-h)), 820px); padding-block: 40px 90px; gap: 40px; }
+    .hero-txt { order: -1; gap: 22px; }
+    .hero-foto { width: min(100%, 640px); justify-self: end; margin-right: calc(-1 * var(--gutter)); }
+    .hero :global(.hero-selo) { left: -40px; right: auto; bottom: 8%; }
+    .hero-ctas { display: flex; flex-wrap: wrap; }
+    .hero-pedir { padding-right: 1.6em; }
+  }
+
+  /* ---------- NALU MANIA ---------- */
+  .mania { background: var(--ambar); color: var(--petroleo-noite); padding-block: 34px 10px; }
+  .mania-in { display: grid; gap: 12px; justify-items: start; }
+  .mania h2 { font-size: var(--t-3xl); color: var(--petroleo); }
+  .mania-oferta { font-size: var(--t-l); max-width: 30ch; line-height: 1.3; }
+  .mania-hoje { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; background: var(--petroleo-noite); color: var(--ambar); padding: 6px 14px; border-radius: var(--r-pill); font-size: 0.9375rem; }
+  .mania-hoje::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+  .mania-hoje[data-ativo='true']::before { background: var(--manjericao); animation: pulsa 1.6s infinite; }
+  @keyframes pulsa { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--manjericao) 30%, transparent); } }
+  @media (min-width: 1024px) {
+    .mania { padding-block: 44px 0; }
+    .mania-in { grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; align-items: end; column-gap: 48px; }
+    .mania-hoje { grid-column: 1 / -1; }
+    .mania h2 { grid-row: 2; }
+    .mania-oferta { grid-row: 2; padding-bottom: 0.4em; }
+    .mania .btn { grid-row: 2; margin-bottom: 0.6em; }
+  }
+
+  /* ---------- FAVORITAS ---------- */
+  .favoritas { padding-block: clamp(72px, 10vw, 140px) 40px; }
+  .fav-cab { display: grid; gap: 10px; margin-bottom: 22px; }
+  .fav-cab h2 { font-size: var(--t-2xl); color: var(--petroleo); }
+  .fav-cab p { color: var(--tinta-suave); max-width: 40ch; }
+  .ver-tudo { font-weight: 700; color: var(--petroleo); justify-self: start; padding-block: 10px; }
+  .fav-trilho { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .fav-trilho::-webkit-scrollbar { display: none; }
+  .fav-lista { display: flex; gap: 14px; width: max-content; margin: 0; padding-inline: var(--gutter); padding-bottom: 8px; }
+  .fav { width: min(72vw, 300px); scroll-snap-align: start; scroll-margin-left: var(--gutter); }
+  .fav-link { display: grid; gap: 8px; text-decoration: none; }
+  .fav-foto { overflow: hidden; border-radius: var(--r-card); }
+  .fav-foto :global(.foto) { transition: transform 0.6s var(--ease); }
+  @media (hover: hover) { .fav-link:hover .fav-foto :global(.foto) { transform: scale(1.05); } }
+  .fav h3 { font-size: 1.5rem; color: var(--chocolate); }
+  @media (min-width: 1024px) {
+    .favoritas { padding-top: 120px; }
+    .fav-cab { grid-template-columns: 1fr 1fr auto; align-items: end; gap: 40px; }
+    .fav-trilho { overflow: visible; }
+    .fav-lista { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px 24px; }
+    .fav { width: auto; }
+    .fav.grande { grid-column: span 2; grid-row: span 2; }
+    .fav.grande h3 { font-size: 2.4rem; }
+    .fav.grande :global(.foto) { aspect-ratio: 3 / 4 !important; }
+  }
+
+  /* ---------- DOCE ---------- */
+  .doce { background: var(--chocolate); color: var(--massa); margin-top: 40px; overflow: hidden; }
+  .doce-in { display: grid; padding-block: 0 44px; }
+  .doce-foto { margin-inline: calc(-1 * var(--gutter)); }
+  .doce-txt { display: grid; gap: 12px; justify-items: start; margin-top: -40px; position: relative; background: var(--chocolate); border-radius: 30px 30px 0 0; padding: 26px 4px 0; }
+  .doce-pre { font-weight: 700; color: var(--ambar); }
+  .doce h2 { font-size: var(--t-2xl); color: var(--farinha-2); line-height: 1; }
+  .doce p:not(.doce-pre) { max-width: 40ch; }
+  @media (min-width: 1024px) {
+    .doce-in { grid-template-columns: 0.85fr 1fr; align-items: center; padding-block: 0; }
+    .doce-foto :global(.foto) { aspect-ratio: 4 / 3 !important; }
+    .doce-foto { margin: 0 0 0 calc(-1 * max(var(--gutter), (100vw - var(--max)) / 2)); }
+    .doce-txt { margin: 0; padding: 60px 0 60px 64px; background: none; gap: 18px; }
+    .doce h2 { font-size: var(--t-3xl); }
+  }
+
+  /* ---------- 4 CASAS ---------- */
+  .casas { position: relative; background: var(--petroleo-noite); color: var(--farinha-2); padding-block: 64px 80px; overflow: hidden; }
+  .casas-in { position: relative; z-index: 1; display: grid; gap: 28px; }
+  .casas-cab { display: grid; gap: 4px; }
+  .neon {
+    font-family: var(--f-display); font-weight: 500; font-size: clamp(4.5rem, 20vw, 9rem); line-height: 0.9; letter-spacing: -0.02em;
+    color: #c9ffd6;
+    text-shadow: 0 0 4px #fff, 0 0 12px var(--manjericao), 0 0 28px var(--manjericao), 0 0 60px color-mix(in srgb, var(--manjericao) 60%, transparent);
+    animation: neon 7s infinite;
+  }
+  @keyframes neon { 0%, 92%, 96%, 100% { opacity: 1; } 94% { opacity: 0.55; } }
+  .casas h2 { font-size: var(--t-xl); color: var(--ambar); }
+  .casas-mapa { display: none; }
+  .casas-lista { display: grid; gap: 16px; }
+  @media (min-width: 720px) and (max-width: 1023px) { .casas-lista { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) {
+    .casas { padding-block: 100px 120px; }
+    .casas-in { grid-template-columns: 1.1fr 1fr; column-gap: 56px; row-gap: 40px; }
+    .casas-cab { grid-column: 1 / -1; grid-template-columns: auto 1fr; align-items: end; column-gap: 40px; }
+    .casas h2 { font-size: var(--t-2xl); padding-bottom: 0.3em; }
+    .casas-mapa { display: block; position: sticky; top: calc(var(--header-h) + 30px); align-self: start; }
+    .casas-lista { grid-template-columns: 1fr 1fr; gap: 18px; }
+  }
+
+  /* ---------- KIDS ---------- */
+  .kids { background: var(--farinha); padding-block: 72px 40px; }
+  .kids-in { display: grid; gap: 26px; }
+  .kids-foto :global(.foto) { border-radius: 40px 40px 40px 160px; }
+  .kids-txt { display: grid; gap: 14px; justify-items: start; }
+  .kids h2 { font-size: var(--t-2xl); color: var(--petroleo); }
+  .kids-lede { font-family: var(--f-sabor); font-style: italic; font-size: var(--t-l); color: var(--chocolate); }
+  .kids-txt p:not(.kids-lede) { max-width: 44ch; }
+  @media (min-width: 1024px) {
+    .kids { padding-block: 120px 60px; }
+    .kids-in { grid-template-columns: 1.25fr 1fr; align-items: center; gap: 72px; }
+    .kids-foto { margin-left: calc(-1 * max(var(--gutter), (100vw - var(--max)) / 2)); }
+    .kids-foto :global(.foto) { border-radius: 0 40px 240px 0; }
+  }
+
+  /* ---------- ANIVERSÁRIO ---------- */
+  .aniv { background: var(--massa); padding-block: 90px 72px; }
+  .aniv-in { display: grid; gap: 28px; }
+  .aniv h2 { font-size: var(--t-2xl); color: var(--petroleo); max-width: 12ch; }
+  .oferta { display: flex; align-items: center; gap: 16px; margin-top: 18px; }
+  .oferta p { font-size: var(--t-m); max-width: 30ch; }
+  .oferta b { font-size: 1.25em; color: var(--chocolate); }
+  .aniv-form { background: var(--farinha-2); border-radius: 30px; padding: 22px 18px; box-shadow: 0 1px 0 color-mix(in srgb, var(--chocolate) 15%, transparent); }
+  @media (min-width: 1024px) {
+    .aniv { padding-block: 140px 110px; }
+    .aniv-in { grid-template-columns: 1fr 460px; gap: 80px; align-items: center; }
+    .aniv h2 { font-size: var(--t-3xl); }
+    .aniv-form { padding: 32px; transform: rotate(-1deg); }
+  }
+
+  /* ---------- VINHO ---------- */
+  .vinho { background: var(--petroleo-noite); color: var(--farinha); padding-block: 64px; }
+  .vinho-in { display: grid; grid-template-columns: 0.8fr 1fr; gap: 20px; align-items: end; }
+  .vinho-foto :global(.foto) { border-radius: 999px 999px 24px 24px; }
+  .vinho-txt { display: grid; gap: 12px; justify-items: start; }
+  .vinho h2 { font-size: var(--t-xl); color: var(--ambar); }
+  .vinho-frase { font-size: var(--t-l); line-height: 1.2; color: var(--farinha-2); }
+  .vinho-txt p:last-of-type { font-size: 0.9375rem; opacity: 0.88; }
+  @media (max-width: 559px) {
+    .vinho-in { grid-template-columns: 1fr; }
+    .vinho-foto { width: 64%; }
+  }
+  @media (min-width: 1024px) {
+    .vinho { padding-block: 110px; }
+    .vinho-in { grid-template-columns: 360px 1fr; gap: 80px; align-items: center; max-width: 1080px; }
+    .vinho h2 { font-size: var(--t-2xl); }
+    .vinho-frase { font-size: var(--t-xl); }
+  }
+
+  /* ---------- EQUIPE ---------- */
+  .equipe { padding-block: 0 40px; background: var(--farinha); }
+  .equipe-foto :global(.foto) { aspect-ratio: 4/3 !important; }
+  .equipe-cartao { position: relative; margin-top: -60px; background: var(--farinha-2); border-radius: 26px; padding: 22px; display: grid; gap: 10px; max-width: 560px; }
+  .equipe h2 { font-size: var(--t-xl); color: var(--petroleo); }
+  @media (min-width: 768px) { .equipe-foto :global(.foto) { aspect-ratio: 21/9 !important; } }
+  @media (min-width: 1024px) {
+    .equipe-cartao { margin-top: -140px; margin-left: auto; padding: 36px; }
+    .equipe h2 { font-size: var(--t-2xl); }
+  }
+
+  /* ---------- INSTAGRAM ---------- */
+  .insta { padding-block: 40px 90px; }
+  .insta-cab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+  .insta h2 { font-size: var(--t-2xl); color: var(--petroleo); text-transform: none; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .mosaico { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mosaico a { display: block; border-radius: 18px; overflow: hidden; }
+  .mosaico li:first-child { grid-column: span 2; }
+  .mosaico li:first-child :global(.foto) { aspect-ratio: 16/10 !important; }
+  @media (min-width: 1024px) {
+    .insta { padding-block: 80px 140px; }
+    .mosaico { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .mosaico li:first-child { grid-row: span 2; }
+    .mosaico li:first-child a { height: 100%; }
+    .mosaico li:first-child :global(.foto) { aspect-ratio: auto !important; height: 100%; }
+  }
+</style>
+
+<script>
+  import { naluManiaHoje, agoraFortaleza } from '../lib/horario';
+  import { site } from '../config/site';
+  const box = document.querySelector<HTMLElement>('[data-mania-hoje]');
+  const txt = document.querySelector<HTMLElement>('[data-mania-txt]');
+  if (box && txt) {
+    const ativo = naluManiaHoje(site.naluMania.dias);
+    box.dataset.ativo = String(ativo);
+    const dia = agoraFortaleza().dia;
+    txt.textContent = ativo ? (dia === 4 ? 'Hoje é o último dia da Nalu Mania na semana' : 'Hoje tem Nalu Mania') : 'Nalu Mania volta segunda';
+  }
+  // Mapa: destaca o pino da casa em foco/hover na lista
+  const sec = document.querySelector<HTMLElement>('[data-mapa-ativo]');
+  document.querySelectorAll<HTMLElement>('[data-casa-item]').forEach((li) => {
+    const on = () => sec && (sec.dataset.mapaAtivo = li.dataset.casaItem!);
+    li.addEventListener('pointerenter', on);
+    li.addEventListener('focusin', on);
+  });
+</script>

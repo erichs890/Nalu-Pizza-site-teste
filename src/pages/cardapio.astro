@@ -1,0 +1,246 @@
+---
+import Base from '../layouts/Base.astro';
+import Preco from '../components/Preco.astro';
+import Foto from '../components/Foto.astro';
+import Icone from '../components/Icone.astro';
+import { cardapio, itensDa, fotoDoItem } from '../data/cardapio';
+import { site } from '../config/site';
+import { unidades } from '../config/unidades';
+import { jsonldMenu, breadcrumb } from '../lib/seo';
+
+const atualizado = cardapio.atualizadoEm
+  ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'America/Fortaleza' }).format(new Date(cardapio.atualizadoEm + 'T12:00:00'))
+  : null;
+import { existeFoto } from '../lib/fotos';
+---
+<Base
+  titulo="Cardápio Nalu Pizzas · Pizzas artesanais, massas, petiscos e drinks"
+  descricao="O cardápio completo da Nalu: Queridinhas, Do Forno ao Coração e Especiais do Chef, pizzas doces, mini pizzas, massas, petiscos, sobremesas e drinks. Peça online com entrega grátis."
+  semBarra
+  jsonld={[jsonldMenu(), breadcrumb([['Início', '/'], ['Cardápio', '/cardapio']])]}
+>
+  <div class="cardapio">
+    <header class="cab wrap">
+      <h1 class="chamada">Cardápio</h1>
+      <p class="sub">Massa leve, borda crocante. Escolha o tamanho e veja os preços da sua casa.</p>
+      {site.cardapioPendente && (
+        <p class="aviso no-print" role="note">Modelo com dados de exemplo. Os sabores e preços reais entram quando o cardápio chegar. <span class="confirmar">[CONFIRMAR]</span></p>
+      )}
+    </header>
+
+    <div class="ferramentas" data-ferramentas>
+      <div class="wrap ferr-in">
+        <label class="busca">
+          <Icone nome="busca" />
+          <span class="sr-only">Buscar no cardápio</span>
+          <input type="search" placeholder="Buscar sabor, ingrediente…" data-busca autocomplete="off" enterkeyhint="search" />
+        </label>
+        <div class="tamanhos" role="radiogroup" aria-label="Tamanho">
+          <button type="button" role="radio" aria-checked="true" data-tam="">Todos</button>
+          {cardapio.tamanhos.map((t) => <button type="button" role="radio" aria-checked="false" data-tam={t}>{t}</button>)}
+        </div>
+      </div>
+      <nav class="chips" aria-label="Categorias" data-chips>
+        <div class="chips-in">
+          {cardapio.categorias.map((c, n) => <a href={`#${c.id}`} data-chip={c.id} aria-current={n === 0 ? 'true' : undefined}>{c.nome}</a>)}
+        </div>
+      </nav>
+    </div>
+
+    <div class="wrap corpo">
+      <aside class="lateral-esq no-print" aria-label="Categorias">
+        <ul>
+          {cardapio.categorias.map((c, n) => <li><a href={`#${c.id}`} data-chip={c.id} aria-current={n === 0 ? 'true' : undefined}>{c.nome}</a></li>)}
+        </ul>
+      </aside>
+
+      <div class="listas">
+        {cardapio.categorias.map((c) => (
+          <section id={c.id} class="categoria" data-categoria={c.id} aria-labelledby={`t-${c.id}`}>
+            <h2 id={`t-${c.id}`} class="chamada">{c.nome}</h2>
+            <ul class="itens">
+              {itensDa(c.id).map((i) => (
+                <li class="item" data-item data-busca-txt={`${i.nome} ${i.descricao ?? ''}`} data-unidades={(i.unidades ?? []).join(' ')}>
+                  <div class="texto">
+                    <div class="linha">
+                      <h3 class="sabor">{i.nome}</h3>
+                      {i.tags?.includes('novo') && <span class="tag">novo</span>}
+                    </div>
+                    {i.descricao && <p class="desc">{i.descricao}</p>}
+                    {i.linha && <p class="linha-orig">Linha {i.linha}</p>}
+                    <div class="precos">
+                      {i.precos.map((p) => <Preco valor={p.valor} tamanho={p.tamanho} />)}
+                    </div>
+                  </div>
+                  {existeFoto(fotoDoItem(i)) && (
+                    <Foto src={fotoDoItem(i)} alt={i.nome} pede="foto de cima, 1:1, fundo escuro" proporcao="1/1" sizes="96px" larguras={[96, 192]} tom={c.id === 'pizzas-doces' ? 'chocolate' : 'massa'} class="mini" />
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+        {cardapio.observacoes?.length && (
+          <aside class="obs" aria-label="Informações">
+            <ul>{cardapio.observacoes.map((o) => <li>{o}</li>)}</ul>
+          </aside>
+        )}
+        <p class="vazio" data-vazio hidden>Nada com esse nome por aqui. Tenta outro sabor?</p>
+        <p class="atualizado">{atualizado ? `Cardápio atualizado em ${atualizado}.` : <span class="confirmar">[CONFIRMAR: data de atualização do cardápio]</span>} Preços podem variar entre as casas.</p>
+      </div>
+
+      <aside class="lateral-dir no-print" aria-label="Sua unidade">
+        <div class="cartao-unidade on-dark">
+          <p class="pre">Sua unidade</p>
+          <button type="button" class="u" data-abre-seletor><span class="u-pre">Nalu&nbsp;</span><span data-u-nome="Escolher">Escolher</span><Icone nome="baixo" /></button>
+          {unidades.map((u) => <span class="status" data-status-slug={u.slug} data-so={u.slug}>Horário a confirmar</span>)}
+          <a href="#escolher-unidade" data-u-pedido class="btn">Pedir agora</a>
+          <p class="mini-txt">Entrega grátis e cashback no pedido pelo site.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="cta-fixo no-print">
+      <a href="#escolher-unidade" data-u-pedido class="btn"><Icone nome="sacola" /><span>Pedir&nbsp;<span class="u-pre">na Nalu&nbsp;</span><span data-u-nome="agora">agora</span></span></a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .cab { padding-top: clamp(24px, 5vw, 56px); padding-bottom: 18px; display: grid; gap: 10px; }
+  .cab h1 { font-size: var(--t-3xl); color: var(--petroleo); }
+  .sub { font-size: var(--t-m); max-width: 46ch; color: var(--tinta-suave); }
+  .aviso { background: color-mix(in srgb, var(--ambar) 22%, var(--farinha-2)); border-radius: 14px; padding: 10px 14px; font-size: 0.9375rem; max-width: 62ch; }
+
+  .ferramentas { position: sticky; top: var(--header-h); z-index: 20; background: var(--farinha); transition: top 0.3s var(--ease); box-shadow: 0 1px 0 color-mix(in srgb, var(--massa) 80%, transparent); }
+  :global(.topo-off) .ferramentas { top: 0; }
+  .ferr-in { display: flex; gap: 10px; align-items: center; padding-block: 10px 6px; flex-wrap: wrap; }
+  .busca { flex: 1 1 220px; display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 14px; border-radius: var(--r-pill); background: var(--farinha-2); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--petroleo) 20%, transparent); color: var(--tinta-suave); }
+  .busca:focus-within { box-shadow: inset 0 0 0 2px var(--petroleo); }
+  .busca :global(svg) { width: 20px; flex: none; }
+  .busca input { border: 0; background: transparent; width: 100%; min-height: 46px; outline: none; color: var(--tinta); }
+  .tamanhos { display: flex; padding: 4px; gap: 2px; background: color-mix(in srgb, var(--petroleo) 8%, transparent); border-radius: var(--r-pill); }
+  .tamanhos button { min-height: 40px; min-width: 48px; padding: 0 14px; border: 0; border-radius: var(--r-pill); background: transparent; font-weight: 600; font-size: 0.9375rem; cursor: pointer; color: var(--petroleo); }
+  .tamanhos [aria-checked='true'] { background: var(--petroleo); color: var(--farinha-2); }
+  .chips { overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chips-in { display: flex; gap: 8px; width: max-content; padding: 4px var(--gutter) 10px; }
+  .chips a { scroll-snap-align: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: var(--r-pill); text-decoration: none; font-weight: 600; font-size: 0.9375rem; color: var(--petroleo); background: var(--farinha-2); white-space: nowrap; }
+  .chips a[aria-current='true'] { background: var(--ambar); color: var(--petroleo-noite); }
+
+  .corpo { padding-block: 18px 40px; }
+  .lateral-esq, .lateral-dir { display: none; }
+  .categoria { padding-top: 26px; }
+  .categoria h2 { font-size: var(--t-xl); color: var(--petroleo); margin-bottom: 8px; }
+  .itens { display: grid; }
+  .item { display: grid; grid-template-columns: 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px dashed color-mix(in srgb, var(--chocolate) 22%, transparent); }
+  .item[hidden] { display: none; }
+  .linha { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .item h3 { font-size: 1.375rem; color: var(--chocolate); line-height: 1.15; }
+  .tag { font-size: 0.75rem; font-weight: 700; color: var(--farinha-2); background: var(--tomate); padding: 1px 8px; border-radius: 99px; }
+  .desc { color: var(--tinta-suave); font-size: 0.9375rem; margin-top: 4px; max-width: 52ch; }
+  .precos { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; }
+  .precos :global(.preco-item[hidden]) { display: none; }
+  .item :global(.mini) { width: 88px; height: 88px; border-radius: 22px; grid-column: 2; grid-row: 1; align-self: start; }
+  .item :global(.mini.foto--falta) { padding: 8px; }
+  .item :global(.mini .pede) { display: none; }
+  .item :global(.mini .arq) { font-size: 0.6875rem; font-weight: 600; }
+  .linha-orig { font-size: var(--t-xs); color: var(--tinta-suave); margin-top: 2px; }
+  .obs { margin-top: 36px; padding: 18px 20px; border-radius: 18px; background: color-mix(in srgb, var(--massa) 55%, var(--farinha-2)); }
+  .obs ul { display: grid; gap: 6px; font-size: 0.9375rem; }
+  .vazio { padding: 40px 0; font-size: var(--t-m); text-align: center; }
+  .atualizado { margin-top: 28px; font-size: var(--t-xs); color: var(--tinta-suave); }
+
+  .cta-fixo { position: fixed; left: 12px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 40; }
+  .cta-fixo .btn { width: 100%; min-height: 58px; box-shadow: 0 12px 26px -10px rgba(10, 46, 46, 0.55); }
+  .cta-fixo span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  @media (min-width: 1024px) {
+    .chips { display: none; }
+    .ferramentas { position: static; box-shadow: none; }
+    .ferr-in { padding-bottom: 0; }
+    .busca { max-width: 420px; }
+    .cta-fixo { display: none; }
+    .corpo { display: grid; grid-template-columns: 200px minmax(0, 1fr) 280px; gap: 48px; align-items: start; }
+    .lateral-esq, .lateral-dir { display: block; position: sticky; top: calc(var(--header-h) + 24px); }
+    :global(.topo-off) .lateral-esq, :global(.topo-off) .lateral-dir { top: 24px; }
+    .lateral-esq ul { display: grid; gap: 2px; border-left: 2px solid color-mix(in srgb, var(--petroleo) 15%, transparent); }
+    .lateral-esq a { display: block; padding: 10px 16px; margin-left: -2px; border-left: 2px solid transparent; text-decoration: none; font-weight: 600; color: var(--tinta-suave); }
+    .lateral-esq a[aria-current='true'] { color: var(--petroleo); border-color: var(--ambar); }
+    .categoria:first-child { padding-top: 0; }
+    .itens { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+    .item { grid-template-columns: 1fr; border-bottom: 0; padding: 14px 0; }
+    .item :global(.mini) { display: none; }
+    .linha { flex-wrap: nowrap; }
+    .linha::after { content: ''; flex: 1; border-bottom: 2px dotted color-mix(in srgb, var(--chocolate) 30%, transparent); transform: translateY(-5px); min-width: 20px; }
+    .cartao-unidade { background: var(--petroleo); color: var(--farinha-2); border-radius: var(--r-card); padding: 24px; display: grid; gap: 12px; position: relative; overflow: hidden; }
+    .pre { font-size: var(--t-xs); opacity: 0.8; }
+    .u { display: flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; font-family: var(--f-display); font-size: 1.75rem; font-weight: 600; color: var(--ambar); }
+    .u :global(svg) { width: 22px; }
+    .cartao-unidade .status { display: none; }
+    :global(html[data-unidade='coco']) .cartao-unidade [data-so='coco'],
+    :global(html[data-unidade='sul']) .cartao-unidade [data-so='sul'],
+    :global(html[data-unidade='north']) .cartao-unidade [data-so='north'],
+    :global(html[data-unidade='eusebio']) .cartao-unidade [data-so='eusebio'] { display: inline-flex; }
+    .mini-txt { font-size: var(--t-xs); opacity: 0.8; }
+  }
+  @media print {
+    .ferramentas, .aviso { display: none; }
+    .item :global(.mini) { display: none; }
+    .item { break-inside: avoid; }
+  }
+</style>
+
+<script>
+  import { lerEscolha } from '../lib/escolha';
+
+  const norm = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+  const itens = [...document.querySelectorAll<HTMLElement>('[data-item]')];
+  const cats = [...document.querySelectorAll<HTMLElement>('[data-categoria]')];
+  const vazio = document.querySelector<HTMLElement>('[data-vazio]')!;
+  const busca = document.querySelector<HTMLInputElement>('[data-busca]')!;
+
+  function filtrar() {
+    const q = norm(busca.value.trim());
+    const u = lerEscolha()?.slug;
+    let total = 0;
+    for (const it of itens) {
+      const unid = it.dataset.unidades;
+      const ok = (!q || norm(it.dataset.buscaTxt || '').includes(q)) && (!u || !unid || unid.split(' ').includes(u));
+      it.hidden = !ok;
+      if (ok) total++;
+    }
+    for (const c of cats) c.hidden = !c.querySelector('[data-item]:not([hidden])');
+    vazio.hidden = total > 0;
+  }
+  busca.addEventListener('input', filtrar);
+  document.addEventListener('nalu:unidade', filtrar);
+  filtrar();
+
+  // Tamanho
+  const tams = [...document.querySelectorAll<HTMLButtonElement>('[data-tam]')];
+  tams.forEach((b) => b.addEventListener('click', () => {
+    tams.forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+    const t = b.dataset.tam;
+    // só filtra itens que têm o tamanho escolhido (lasanha, sucos etc. continuam com os próprios tamanhos)
+    document.querySelectorAll<HTMLElement>('.precos').forEach((box) => {
+      const ps = [...box.querySelectorAll<HTMLElement>('.preco-item')];
+      const tem = !!t && ps.some((p) => p.dataset.tamanho === t);
+      ps.forEach((p) => (p.hidden = tem && p.dataset.tamanho !== t));
+    });
+  }));
+
+  // Categoria ativa
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-chip]')];
+  const chipsBox = document.querySelector<HTMLElement>('[data-chips]')!;
+  const ativar = (id: string) => {
+    links.forEach((l) => (l.dataset.chip === id ? l.setAttribute('aria-current', 'true') : l.removeAttribute('aria-current')));
+    const chip = chipsBox.querySelector<HTMLElement>(`[data-chip="${id}"]`);
+    if (chip) chipsBox.scrollTo({ left: chip.offsetLeft - 16, behavior: 'smooth' });
+  };
+  const io = new IntersectionObserver((es) => {
+    const vis = es.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+    if (vis) ativar((vis.target as HTMLElement).id);
+  }, { rootMargin: '-35% 0px -55% 0px' });
+  cats.forEach((c) => io.observe(c));
+</script>

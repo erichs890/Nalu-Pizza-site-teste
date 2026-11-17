@@ -1,0 +1,46 @@
+---
+// Mapa ilustrado (não é mapa real): litoral de Fortaleza, rio Cocó e os 4 pinos.
+// Posições projetadas das coordenadas em unidades.ts.
+import { unidades } from '../config/unidades';
+const W = 600, H = 520;
+const lng0 = -38.62, lng1 = -38.40, lat0 = -3.70, lat1 = -3.91;
+const px = (lng: number) => ((lng - lng0) / (lng1 - lng0)) * W;
+const py = (lat: number) => ((lat - lat0) / (lat1 - lat0)) * H;
+---
+<svg class="mapa" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Mapa ilustrado com as 4 casas da Nalu em Fortaleza e no Eusébio">
+  <!-- mar -->
+  <path d="M0 0H600V40C540 52 500 60 470 92C450 112 430 120 400 112C360 100 330 80 280 84C220 88 170 70 120 76C70 82 30 70 0 80Z" fill="color-mix(in srgb, var(--petroleo-2) 70%, var(--petroleo-noite))" />
+  <path d="M0 80C30 70 70 82 120 76C170 70 220 88 280 84C330 80 360 100 400 112C430 120 450 112 470 92C500 60 540 52 600 40" fill="none" stroke="var(--ambar)" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".7" />
+  <!-- rio Cocó -->
+  <path d="M470 100C455 150 470 190 440 230C415 265 430 300 400 340C380 368 390 410 360 450" fill="none" stroke="color-mix(in srgb, var(--petroleo-2) 80%, var(--farinha))" stroke-width="5" stroke-linecap="round" opacity=".5" />
+  <!-- limites de cidade -->
+  <path d="M160 520C260 440 380 420 600 400" fill="none" stroke="var(--farinha)" stroke-width="1.2" stroke-dasharray="6 6" opacity=".35" />
+  <text x="40" y="150" class="cid">FORTALEZA</text>
+  <text x="470" y="490" class="cid">EUSÉBIO</text>
+  <text x="510" y="30" class="mar">Atlântico</text>
+  {unidades.map((u) => {
+    const x = px(u.coords.lng), y = py(u.coords.lat);
+    return (
+      <g class="pino" data-pino={u.slug} transform={`translate(${x.toFixed(0)} ${y.toFixed(0)})`}>
+        <circle r="22" class="halo" />
+        <path d="M0 0c-9-10-14-17-14-24a14 14 0 0 1 28 0c0 7-5 14-14 24Z" class="gota" />
+        <circle cy="-24" r="5" class="miolo" />
+        <text y="22" class="rot">{u.nome}</text>
+      </g>
+    );
+  })}
+</svg>
+<style>
+  .mapa { width: 100%; height: auto; }
+  .cid { font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: 4px; fill: var(--farinha); opacity: 0.35; }
+  .mar { font-family: var(--f-sabor); font-style: italic; font-size: 15px; fill: var(--farinha); opacity: 0.5; }
+  .gota { fill: var(--ambar); }
+  .miolo { fill: var(--petroleo-noite); }
+  .halo { fill: var(--ambar); opacity: 0; transition: opacity 0.2s; }
+  .rot { font-family: var(--f-display); font-weight: 600; font-size: 18px; fill: var(--farinha-2); text-anchor: middle; }
+  .pino { transition: transform 0.2s; }
+  :global([data-mapa-ativo='coco']) [data-pino='coco'] .halo,
+  :global([data-mapa-ativo='sul']) [data-pino='sul'] .halo,
+  :global([data-mapa-ativo='north']) [data-pino='north'] .halo,
+  :global([data-mapa-ativo='eusebio']) [data-pino='eusebio'] .halo { opacity: 0.25; }
+</style>
